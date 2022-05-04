@@ -8,6 +8,7 @@ import Discount from "./components/Discount"
 import News from "./components/News"
 import About from "./components/About"
 import Navibar from './components/NaviBar';
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function App() {
  return(

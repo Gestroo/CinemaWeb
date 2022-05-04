@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@types/webpack": "^5.28.0",
+    "file-loader": "^6.2.0",
     "gulp": "^4.0.2",
     "gulp-typescript": "^6.0.0-alpha.1",
     "html-webpack-plugin": "^5.5.0",

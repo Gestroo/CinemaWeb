@@ -1,5 +1,6 @@
 import React from 'react';
 import {Card} from 'react-bootstrap';
+import Image from 'react-bootstrap/Image'
 
 function Home() {
   return (
@@ -9,6 +10,9 @@ function Home() {
           Фильмы
         </Card.Body>
       </Card>
+<Image>
+
+</Image>
     </div>
   );
 }

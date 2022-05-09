@@ -15,3 +15,9 @@ code {
   background-color:#635654;
   color:#fff;
 }
+
+.film:hover{
+  cursor: pointer;
+  background:#000;
+  opacity: 80%;
+}

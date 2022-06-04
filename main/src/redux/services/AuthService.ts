@@ -3,7 +3,10 @@ import {Answer, LoginModel, RegistrationModel} from "../../models/RequestModel";
 import {removeCookie, setCookie} from "typescript-cookie";
 import {RegisterSuccess, RegisterFail, LoginSuccess, LoginFail, Logout} from "../actions/authActions"
 import {Client} from "../../models/ClientModel";
-const API_URL = "http://localhost:8080/auth/"
+import {clientActions} from "../slices/clientslice";
+
+const API_URL = "http://localhost:8080/auth/";
+
 
 class AuthService {
 	register(reg: RegistrationModel) {
@@ -15,7 +18,7 @@ class AuthService {
 					setCookie("refresh_token", data.answer.refresh_token, {path: ''});
 					const client: Client = data.answer.user;
 					localStorage.setItem('user', JSON.stringify(client))
-					return RegisterSuccess();
+					return clientActions.registerSuccess({isAuth: true, client: client});
 				}
 				return RegisterFail(data.errorText!);
 			}).catch((err) => {
@@ -32,7 +35,7 @@ class AuthService {
 					setCookie("refresh_token", data.answer.refresh_token, {path: ''});
 					const client: Client = data.answer.user;
 					localStorage.setItem('user', JSON.stringify(client));
-					return LoginSuccess();
+					return clientActions.loginSuccess({isAuth: true, client: client});
 				}
 				return LoginFail(data.errorText!);
 			}).catch((err) => {
@@ -43,7 +46,7 @@ class AuthService {
 		removeCookie("access_token", {path: ''});
 		removeCookie("refresh_token", {path: ''});
 		localStorage.removeItem('user');
-		return Logout();
+		return clientActions.logout();
 	}
 }
 export default new AuthService();

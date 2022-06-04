@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Dropdown} from 'react-bootstrap';
+import {Dropdown} from 'react-bootstrap';
 
 function Profile() {
   return (

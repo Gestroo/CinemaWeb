@@ -9,8 +9,6 @@ namespace CinemaLibrary.Entity
 
         public int ID { get; set; }
         [Required]
-        public HallRow HallRow { get; set; }
-        [Required]
         public int SeatNumber { get; set; }
         public List<Seance> BoughtSeances { get; set; }
         public List<Seance> ReservedSeances { get; set; }
@@ -22,10 +20,9 @@ namespace CinemaLibrary.Entity
             BoughtSeances = new List<Seance>();
             ReservedSeances = new List<Seance>();
         }
-
-        public static HallSeat FindSeat(int row, int number)
-        {
-            return db.HallSeat.FirstOrDefault(h => h.HallRow.RowNumber == row && h.SeatNumber == number);
+        public static HallSeat GetSeatByID(int id) {
+            using var db = new ApplicationContext();
+            return db.HallSeat.FirstOrDefault(s => s.ID == id);
         }
     }
 }

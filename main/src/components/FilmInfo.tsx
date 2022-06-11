@@ -7,7 +7,6 @@ import SeanceService from '../redux/services/SeanceService';
 import {Film} from '../models/FilmModel'
 import {Seance} from '../models/SeanceModel'
 
-
 function FilmInfo() {
   const navigate = useNavigate();
   const [film, setFilm] = React.useState<Film>();
@@ -15,7 +14,7 @@ function FilmInfo() {
   const {search} = useLocation();
   const searchParams = new URLSearchParams(search);
   const filmId = searchParams.get("id");
-  let key = false;
+  const [key,setKey] = React.useState<boolean>(false)
 
 
   React.useEffect(() => {
@@ -25,11 +24,11 @@ function FilmInfo() {
         setFilm(res);
       }
     })
-    SeanceService.getSeanceById(filmId!).then((res) => {
+    SeanceService.getSeanceByFilmId(filmId!).then((res) => {
       setSeances(res);
     })
-    key = true;
-  }, [film, seances])
+    setKey(true);
+  }, [film, seances,key])
   return (
       <div className='d-flex'
       style={{
@@ -51,25 +50,16 @@ function FilmInfo() {
           </Image>
         </Card.Body>
         </Card>
-        <div>
-        <div className='d-flex'>
+        <div style={{
+          width:"90%"
+        }}>
+        <div className='mx-4'>
         <h2 className='my-2' style={{
             color:"#fff"
         }}>
            {film?.Name}
         </h2>
-        <Button onClick={() => {navigate("/tickets")}} className="mx-4 mt-2" style={{
-          color:"white",
-          fontWeight: "bold",
-            backgroundColor: "#D0B3AA",
-            borderColor: "#D0B3AA",
-            height:'40px'}}>
-          Купить билеты
-        </Button>
-        
-        </div>
-        
-          <div>
+        <div>
             <h4>
               Жанр: {film?.Genre.Title}
             </h4>
@@ -83,20 +73,29 @@ function FilmInfo() {
           <p>
             {film?.Description}
           </p>
-          <Container className='mt-4 mb-4 row row-cols-1 row-cols-sm-2 row-cols-md-5 g-5 col-lg-11 col-md-8 mx-auto'>
+        </div>
+        
+          
+          <Container className='mt-4 mb-4 row row-cols-1 row-cols-sm-5 row-cols-md-5 g-5 col-lg-11 col-md-8 mx-auto' style={{
+            width:"100%"
+          }}>
         {seances.map((seance)=>(
-            <div className='col'>
-            <Card className="mx-4 "
+            <Card onClick={()=> {navigate("/tickets?id="+ seance.ID)}} className="mx-4 seance"
        style={{
         backgroundColor: "#635654",
         borderColor: "#635654",
         color:"#fff",
+        width:"200px",
+        border:"2px solid #D0B3AA",
+        borderRadius:"15px",
       }}>
         <Card.Body>
-
+          <h5 style={{
+            textAlign:"center",
+          }}>{seance.SeanceDate} </h5>
           <h3 style={{
             textAlign:"center",
-          }}>{seance.SeanceDate.getHours}:{seance.SeanceDate.getMinutes}</h3>
+          }}>{seance.SeanceTime}</h3>
           <h6 style={{
             textAlign:"center",
           }}>
@@ -104,7 +103,6 @@ function FilmInfo() {
           </h6>
         </Card.Body>
       </Card>
-          </div>
         ))}
       </Container>
           </div>

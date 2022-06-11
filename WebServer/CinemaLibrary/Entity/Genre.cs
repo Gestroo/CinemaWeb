@@ -13,9 +13,14 @@ namespace CinemaLibrary.Entity
         public string Description { get; set; }
 
         private static ApplicationContext db = Context.Db;
-        public static List<string> GetGenres()
+        public static List<string> GetGenresTitle()
         {
+            using var db = new ApplicationContext();
             return db.Genre.Select(g => g.Title).ToList();
+        }
+        public static List<Genre> GetGenres() {
+            using var db = new ApplicationContext();
+            return db.Genre.OrderBy(g=>g.Title).ToList();
         }
         public static Genre GetGenreByTitle(string title)
         {

@@ -23,7 +23,7 @@ class FilmService {
               });
         }
         getFilmById(id: string) {
-          return axios.post(API_URL + "id", id)
+          return axios.get(API_URL + "id?id="+id)
             .then((response) => {
               const data: Answer = response.data;
               const film : Film = data.answer.film

@@ -3,6 +3,7 @@ using System;
 using CinemaLibrary;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CinemaLibrary.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220610091350_editBookingMigration")]
+    partial class editBookingMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2528,20 +2530,24 @@ namespace CinemaLibrary.Migrations
 
             modelBuilder.Entity("CinemaLibrary.Entity.HallRow", b =>
                 {
-                    b.HasOne("CinemaLibrary.Entity.CinemaHall", null)
+                    b.HasOne("CinemaLibrary.Entity.CinemaHall", "CinemaHall")
                         .WithMany("Rows")
                         .HasForeignKey("CinemaHallID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CinemaHall");
                 });
 
             modelBuilder.Entity("CinemaLibrary.Entity.HallSeat", b =>
                 {
-                    b.HasOne("CinemaLibrary.Entity.HallRow", null)
+                    b.HasOne("CinemaLibrary.Entity.HallRow", "HallRow")
                         .WithMany("Seats")
                         .HasForeignKey("HallRowID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("HallRow");
                 });
 
             modelBuilder.Entity("CinemaLibrary.Entity.Personal", b =>

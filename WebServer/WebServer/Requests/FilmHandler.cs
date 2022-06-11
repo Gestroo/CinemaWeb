@@ -25,26 +25,36 @@ namespace WebServer.Requests
                 Send(new AnswerModel(false, null, 401, "incorrect request body"));
                 return;
             }
+
+
+
+
+
             foreach (var f in rawfilms)
             {
-                FilmModel film = new FilmModel(f.ID,f.Name, f.Duration, f.GenreID, f.Restriction, f.Description, f.Poster) { Genre = f.Genre };
+                FilmModel film = new FilmModel(f.ID,f.Name, f.Duration, new GenreModel(f.Genre.ID, f.Genre.Title), f.Restriction, f.Description, f.Poster) { };
                 
                 films.Add(film);
             }
             
             Send(new AnswerModel(true, new { films = films }, null, null));
         }
-        [Post("id")]
+        [Get("id")]
         public void GetFilmsByID()
         {
-            var id = Bind<int>();
+            var id = GetParams<int>("id");
+            if (id == null)
+            {
+                Send(new AnswerModel(false, null, 401, "incorrect request body"));
+                return;
+            }
             var rawfilm= Film.GetFilmByID(id);
             if (rawfilm == null)
             {
                 Send(new AnswerModel(false, null, 401, "incorrect request body"));
                 return;
             }
-            FilmModel film = new FilmModel(rawfilm.ID, rawfilm.Name, rawfilm.Duration, rawfilm.GenreID, rawfilm.Restriction, rawfilm.Description, rawfilm.Poster) { Genre = rawfilm.Genre };
+            FilmModel film = new FilmModel(rawfilm.ID, rawfilm.Name, rawfilm.Duration, new GenreModel(rawfilm.Genre.ID, rawfilm.Genre.Title), rawfilm.Restriction, rawfilm.Description, rawfilm.Poster) {};
             Send(new AnswerModel(true, new { film = film }, null, null));
         }
     }

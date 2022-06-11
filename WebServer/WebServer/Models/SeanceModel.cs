@@ -10,20 +10,19 @@ namespace WebServer.Models
     public class SeanceModel
     {
         public int ID { get; set; }
-        public CinemaHall CinemaHall { get; set; }
-        public Film Film { get; set; }
-        public DateTime SeanceDate { get; set; }
+        public HallModel CinemaHall { get; set; }
+        public FilmModel Film { get; set; }
+        public string SeanceDate { get; set; }
+        public string SeanceTime { get; set; }
+        public int Cost { get; set; }
 
-        public List<HallSeat> BoughtSeats { get; set; }
-        public List<HallSeat> ReservedSeats { get; set; }
-
-        public SeanceModel(int id,CinemaHall hall, Film film, DateTime SeanceDate, List<HallSeat> boughtseats, List<HallSeat> reservedseats) { 
+        public SeanceModel(int id,HallModel hall, FilmModel film, string SeanceDate, string SeanceTime, int cost) { 
             this.ID = id;
             this.CinemaHall = hall;
             this.Film = film;
+            this.SeanceTime = SeanceTime;
             this.SeanceDate = SeanceDate;
-            this.BoughtSeats = boughtseats;
-            this.ReservedSeats = reservedseats;
+            this.Cost = cost;
         }
     }
 }

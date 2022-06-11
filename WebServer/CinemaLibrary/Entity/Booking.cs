@@ -8,12 +8,12 @@ namespace CinemaLibrary.Entity
         public int ID { get; set; }
         public Client Client { get; set; }
         public DateTime DateTime { get; set; }
-        public List<Reservation> Reservations { get; set; }
-
+        public Ticket Ticket { get; set; }
+        public bool isBought { get; set; }
         public int ClientID { get; set; }
         private static ApplicationContext db = Context.Db;
 
-        public Booking() { Reservations = new List<Reservation>(); }
+        public Booking() { }
 
         public static void Add(Booking booking)
         {

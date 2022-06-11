@@ -3,6 +3,7 @@ using System;
 using CinemaLibrary;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CinemaLibrary.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220610073621_addSeanceCostMigration")]
+    partial class addSeanceCostMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,17 +41,9 @@ namespace CinemaLibrary.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("datetime");
 
-                    b.Property<int?>("TicketID")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("isBought")
-                        .HasColumnType("boolean");
-
                     b.HasKey("ID");
 
                     b.HasIndex("ClientID");
-
-                    b.HasIndex("TicketID");
 
                     b.ToTable("booking", (string)null);
                 });
@@ -2333,6 +2327,29 @@ namespace CinemaLibrary.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
+            modelBuilder.Entity("CinemaLibrary.Entity.Reservation", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+
+                    b.Property<int?>("BookingID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TicketID")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BookingID");
+
+                    b.HasIndex("TicketID");
+
+                    b.ToTable("Reservation");
+                });
+
             modelBuilder.Entity("CinemaLibrary.Entity.Review", b =>
                 {
                     b.Property<int>("ID")
@@ -2506,13 +2523,7 @@ namespace CinemaLibrary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CinemaLibrary.Entity.Ticket", "Ticket")
-                        .WithMany()
-                        .HasForeignKey("TicketID");
-
                     b.Navigation("Client");
-
-                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("CinemaLibrary.Entity.Film", b =>
@@ -2528,20 +2539,24 @@ namespace CinemaLibrary.Migrations
 
             modelBuilder.Entity("CinemaLibrary.Entity.HallRow", b =>
                 {
-                    b.HasOne("CinemaLibrary.Entity.CinemaHall", null)
+                    b.HasOne("CinemaLibrary.Entity.CinemaHall", "CinemaHall")
                         .WithMany("Rows")
                         .HasForeignKey("CinemaHallID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CinemaHall");
                 });
 
             modelBuilder.Entity("CinemaLibrary.Entity.HallSeat", b =>
                 {
-                    b.HasOne("CinemaLibrary.Entity.HallRow", null)
+                    b.HasOne("CinemaLibrary.Entity.HallRow", "HallRow")
                         .WithMany("Seats")
                         .HasForeignKey("HallRowID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("HallRow");
                 });
 
             modelBuilder.Entity("CinemaLibrary.Entity.Personal", b =>
@@ -2562,6 +2577,21 @@ namespace CinemaLibrary.Migrations
                         .HasForeignKey("ClientID");
 
                     b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("CinemaLibrary.Entity.Reservation", b =>
+                {
+                    b.HasOne("CinemaLibrary.Entity.Booking", null)
+                        .WithMany("Reservations")
+                        .HasForeignKey("BookingID");
+
+                    b.HasOne("CinemaLibrary.Entity.Ticket", "Ticket")
+                        .WithMany()
+                        .HasForeignKey("TicketID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("CinemaLibrary.Entity.Review", b =>
@@ -2661,6 +2691,11 @@ namespace CinemaLibrary.Migrations
                         .HasForeignKey("ReservedSeatsID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CinemaLibrary.Entity.Booking", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("CinemaLibrary.Entity.CinemaHall", b =>

@@ -34,7 +34,7 @@ namespace CinemaLibrary.Entity
         }
         public static Client FindClientByTicket(Seance seance, int row, int seat)
         {
-            return db.Client.FirstOrDefault(c => c.Bookings.Any(b => b.Reservations.Any(r => r.Ticket == Ticket.FindTicket(seance, row, seat))));
+            return db.Client.FirstOrDefault(c => c.Bookings.Any(r => r.Ticket == Ticket.FindTicket(seance, row, seat)));
 
         }
         public static bool Add(Client client)

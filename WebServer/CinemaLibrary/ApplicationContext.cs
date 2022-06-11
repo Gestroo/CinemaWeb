@@ -24,7 +24,6 @@ namespace CinemaLibrary
         public DbSet<HallRow> HallRow { get; set; }
         public DbSet<HallSeat> HallSeat { get; set; }
         public DbSet<Personal> Personal { get; set; }
-        public DbSet<Reservation> Reservation { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<Seance> Seance { get; set; }
         public DbSet<Ticket> Ticket { get; set; }

@@ -16,7 +16,7 @@ namespace CinemaLibrary.Entity
         public Film Film { get; set; }
         [Required]
         public DateTime SeanceDate { get; set; }
-
+        public int Cost { get; set; }
         public List<HallSeat> BoughtSeats { get; set; }
         public List<HallSeat> ReservedSeats { get; set; }
         public int CinemaHallID { get; set; }
@@ -34,10 +34,12 @@ namespace CinemaLibrary.Entity
         private static ApplicationContext db = Context.Db;
         public static List<Seance> GetSeances()
         {
+            using var db = new ApplicationContext();
             { return db.Seance.ToList(); }
         }
         public static Seance GetSeance(DateTime dateTime, CinemaHall cinemaHall)
         {
+            using var db = new ApplicationContext();
             return db.Seance.Where(s => s.SeanceDate == dateTime).Where(s => s.CinemaHall == cinemaHall).FirstOrDefault();
         }
         public static void Add(Seance seance)
@@ -47,10 +49,25 @@ namespace CinemaLibrary.Entity
         }
         public static List<Seance> GetSeancesByFilm(int id) {
             using var db = new ApplicationContext();
-            return db.Seance.Where(s => s.Film.ID == id).Include(s => s.Film).Include(s=>s.CinemaHall).Include(s=>s.ReservedSeats).Include(s=>s.BoughtSeats).ToList();
+            return db.Seance.Where(s => s.Film.ID == id).Include(s => s.Film).ThenInclude(f=>f.Genre).Include(s=>s.CinemaHall).Include(s=>s.ReservedSeats).Include(s=>s.BoughtSeats).ToList();
         }
+        public static Seance GetSeanceByID(int id)
+        {
+            using var db = new ApplicationContext();
+            return db.Seance.Where(s => s.ID == id).Include(s => s.Film).ThenInclude(f => f.Genre).Include(s => s.CinemaHall).ThenInclude(h => h.Rows).ThenInclude(r => r.Seats).Include(s => s.ReservedSeats).Include(s => s.BoughtSeats).FirstOrDefault();
+        }
+        public static string CheckSeatStatus(HallSeat seat,Seance seance) {
+            string status="Свободно";
+            if (seance.ReservedSeats.Contains(seat))
+                status = "Забронировано";
+            if (seance.BoughtSeats.Contains(seat))
+                status = "Куплено";
+            return status;
+        }
+
         public void Save()
         {
+            using var db = new ApplicationContext();
             db.SaveChanges();
         }
     }

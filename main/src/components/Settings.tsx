@@ -56,6 +56,10 @@ function Settings() {
                 <Form.Label>Повторите пароль</Form.Label>
                 <Form.Control type="password" placeholder="Повторите пароль" />
             </Form.Group>
+            <Form.Group className="my-2">
+                <Form.Label>Дата родждения</Form.Label>
+                <Form.Control type="date" placeholder="Повторите пароль" />
+            </Form.Group>
             <Button variant="primary" className='mt-4' style={{
                 width: "50%",
                 margin:"0 auto"

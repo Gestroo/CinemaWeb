@@ -34,24 +34,59 @@ namespace WebServer.Requests
 
         //    Send(new AnswerModel(true, new { films = films }, null, null));
         //}
-        [Post("id")]
-        public void GetSeancesByID()
+        [Get("filmId")]
+        public void GetSeancesByFilmID()
         {
-            var id = Bind<int>();
-            var rawseance = Seance.GetSeancesByFilm(id);
-            List<SeanceModel> seances = new List<SeanceModel>();
+            if (!Params.TryGetValue("id", out var id)) {
+                Send(new AnswerModel(false, null, 401, "incorrect request body"));
+                return;
+            }
+            var rawseance = Seance.GetSeancesByFilm(int.Parse(id));
+            
             if (rawseance == null)
             {
                 Send(new AnswerModel(false, null, 401, "incorrect request body"));
                 return;
             }
+            List<SeanceModel> seances = new List<SeanceModel>();
             foreach (var s in rawseance)
             {
-                SeanceModel seance = new SeanceModel(s.ID, s.CinemaHall, s.Film, s.SeanceDate, s.BoughtSeats, s.ReservedSeats) { };
+                SeanceModel seance = new SeanceModel(s.ID, new HallModel(s.CinemaHall.HallNumber,s.CinemaHall.HallName,new List<RowModel>()), new FilmModel(s.Film.ID,s.Film.Name,s.Film.Duration,new GenreModel(s.Film.Genre.ID,s.Film.Genre.Title),s.Film.Restriction,s.Film.Description,s.Film.Poster), s.SeanceDate.ToString("d"),s.SeanceDate.ToString("t"),s.Cost) { };
                 seances.Add(seance);
             }
                 
             Send(new AnswerModel(true, new { seances = seances }, null, null));
+        }
+        [Get("id")]
+        public void GetSeancesByID()
+        {
+            if (!Params.TryGetValue("id", out var id))
+            {
+                Send(new AnswerModel(false, null, 401, "incorrect request body"));
+                return;
+            }
+            var s = Seance.GetSeanceByID(int.Parse(id));
+
+            if (s == null)
+            {
+                Send(new AnswerModel(false, null, 401, "incorrect request body"));
+                return;
+            }
+
+
+            SeanceModel seance = new SeanceModel(s.ID, new HallModel(s.CinemaHall.HallNumber, s.CinemaHall.HallName, new List<RowModel>()), new FilmModel(s.Film.ID, s.Film.Name, s.Film.Duration, new GenreModel(s.Film.Genre.ID, s.Film.Genre.Title), s.Film.Restriction, s.Film.Description, s.Film.Poster), s.SeanceDate.ToString("d"), s.SeanceDate.ToString("t"), s.Cost) { };
+            foreach (var r in s.CinemaHall.Rows)
+            {
+                var kakta = new RowModel(r.ID, r.RowNumber, new List<SeatModel>());
+                foreach (var seat in r.Seats.OrderBy(s=>s.SeatNumber))
+                {
+                    kakta.Seats.Add(new SeatModel(seat, s));
+
+                }
+                seance.CinemaHall.Rows.Add(kakta);
+            }
+
+            Send(new AnswerModel(true, new { seance = seance }, null, null));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace WebServer.Models
             this.ID = seat.ID;
             this.SeatNumber=seat.SeatNumber;
             this.Status = Seance.CheckSeatStatus(seat, seance);
-    }
+        }
     }
    
 }

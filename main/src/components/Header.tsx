@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Navbar,Button,Image,Form, Nav, Modal,Dropdown } from "react-bootstrap";
+import { Navbar,Button,Image,Form, Nav, Modal,Dropdown,InputGroup } from "react-bootstrap";
 import {useNavigate} from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import img from "../assets/img/logo.png";
@@ -9,14 +9,13 @@ import { RootState} from "../redux/store";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../redux/store"
 import AuthService from "../redux/services/AuthService"
-import {LoginSuccess} from "../redux/actions/authActions";
 import {LoginModel} from '../models/RequestModel';
 import sha256 from "sha256";
 import { clientActions } from "../redux/slices/clientslice";
 
     export default function Navibar(){
         interface State {
-            email: string,
+            phone: string,
             password: string
         }
     
@@ -27,7 +26,7 @@ import { clientActions } from "../redux/slices/clientslice";
     const user = useSelector((state: RootState) => state);
     const dispatch = useDispatch<AppDispatch>();
         const [values, setValues] = useState<State>({
-            email: '',
+            phone: '',
             password: ''
         });
     
@@ -36,7 +35,7 @@ import { clientActions } from "../redux/slices/clientslice";
         };
         const logIn = () => {
             const data: LoginModel = {
-                email: values.email,
+                phone: values.phone,
                 password: sha256(values.password)
             };
             AuthService.login(data).then((res) => {
@@ -112,7 +111,9 @@ import { clientActions } from "../redux/slices/clientslice";
                     <Dropdown.Item onClick={()=> {navigate("/profile/tickethistory")}}>История заказов</Dropdown.Item>
                     <Dropdown.Item onClick={()=> {navigate("/profile/settings")}}>Настройки</Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={()=>dispatch(AuthService.logout())}>Выйти</Dropdown.Item>
+                    <Dropdown.Item onClick={()=>{dispatch(AuthService.logout());
+                    navigate("/")
+                    }}>Выйти</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>) }
         </Nav>
@@ -136,9 +137,14 @@ import { clientActions } from "../redux/slices/clientslice";
                 <Form.Label style={{
             fontWeight:"bold",
         }}>Email</Form.Label>
-                <Form.Control type="email" onChange={handleChange("email")} placeholder="Введите email" style={{
+                    <InputGroup className="">
+                        <InputGroup.Text >
+                        +7
+                        </InputGroup.Text>
+                    <Form.Control type="text" placeholder="Введите телефон" onChange={handleChange("phone")} style={{
                    backgroundColor:"#D0B3AA", 
                 }}/>
+                </InputGroup>
             </Form.Group>
             <Form.Group className="my-2">
                 <Form.Label style={{
@@ -150,12 +156,25 @@ color:"000",
                 }}/>
             </Form.Group>
         </Form>
+        <div className="d-flex" style={{
+            alignItems:"center",
+        }}>
         <Button onClick={logIn} className="mt-4" style={{
             backgroundColor:"#D0B3AA",
             borderColor: "#D0B3AA",
             color:"#000",
             fontWeight:"bold",
         }}> Войти</Button>
+        <div style={{
+            alignItems:"center",
+            marginTop:"1rem",
+        }}>
+        <a href="" onClick={()=> {navigate("/registration")}}  className=" mx-4 regref" style={{
+        }}>Зарегистрироваться</a>
+        </div>
+        </div>
+        
+        
     </Modal.Body>
 </Modal>
 </>

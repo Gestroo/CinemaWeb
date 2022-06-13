@@ -16,13 +16,13 @@ namespace WebServer.Models
         public string SeanceTime { get; set; }
         public int Cost { get; set; }
 
-        public SeanceModel(int id,HallModel hall, FilmModel film, string SeanceDate, string SeanceTime, int cost) { 
-            this.ID = id;
-            this.CinemaHall = hall;
-            this.Film = film;
-            this.SeanceTime = SeanceTime;
-            this.SeanceDate = SeanceDate;
-            this.Cost = cost;
+        public SeanceModel(Seance seance) { 
+            this.ID = seance.ID;
+            this.CinemaHall = new HallModel(seance.CinemaHall,seance);
+            this.Film = new FilmModel(seance.Film);
+            this.SeanceTime = seance.SeanceDate.ToString("t");
+            this.SeanceDate = seance.SeanceDate.ToString("d");
+            this.Cost = seance.Cost;
         }
     }
 }

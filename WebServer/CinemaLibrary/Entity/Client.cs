@@ -12,7 +12,7 @@ namespace CinemaLibrary.Entity
         public string Email { get; set; }
 
         [Required]
-        public DateTime BirthDate { get; set; }
+        public DateOnly BirthDate { get; set; }
 
         public List<Booking> Bookings { get; set; }
 
@@ -22,20 +22,25 @@ namespace CinemaLibrary.Entity
             Bookings = new List<Booking>();
         }
 
-        public Client(string LastName, string FirstName, string? MiddleName, string PhoneNumber, DateTime BirthDate)
+        public Client(string LastName, string FirstName, string? MiddleName, string PhoneNumber, DateOnly BirthDate)
             : base(LastName, FirstName, MiddleName, PhoneNumber)
         {
             this.BirthDate = BirthDate;
             Bookings = new List<Booking>();
         }
-        public static Client FindClient(string lastName, string firstName, string middleName, string phoneNumber, DateTime birthDate)
+        public static Client FindClient(string lastName, string firstName, string middleName, string phoneNumber, DateOnly birthDate)
         {
+            using var db = new ApplicationContext();
             return db.Client.Where(c => c.LastName == lastName && c.FirstName == firstName && c.MiddleName == middleName && c.PhoneNumber == phoneNumber && c.BirthDate == birthDate).FirstOrDefault();
         }
-        public static Client FindClientByTicket(Seance seance, int row, int seat)
+        public static Client? FindClientByTicket(Seance seance, int row, int seat)
         {
+            using var db = new ApplicationContext();
             return db.Client.FirstOrDefault(c => c.Bookings.Any(r => r.Ticket == Ticket.FindTicket(seance, row, seat)));
-
+        }
+        public static Client? FindClientByPhoneNumber(string phonenumber) {
+            using var db = new ApplicationContext();
+            return db.Client.FirstOrDefault(c => c.PhoneNumber == phonenumber);
         }
         public static bool Add(Client client)
         {
@@ -55,7 +60,7 @@ namespace CinemaLibrary.Entity
         public static Client? GetClientAuth(string login, string pass)
         {
             return db.Client.FirstOrDefault(
-                    c =>  c.Email == login && c.Password == pass);
+                    c =>  c.PhoneNumber == login && c.Password == pass);
         }
     }
 }

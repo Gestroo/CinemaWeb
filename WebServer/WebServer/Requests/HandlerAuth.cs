@@ -14,7 +14,7 @@ public class AuthHandler : RequestHandler
         var model = new JsonWebTokenPayload
         {
             Id = Guid.NewGuid().ToString("n"),
-            Issuer = $"{client.Email}",
+            Issuer = $"{client.PhoneNumber}",
             Expiration = DateTime.Now + new TimeSpan(1, 0, 0)
         };
         var refreshModel = new JsonWebTokenPayload
@@ -39,13 +39,13 @@ public class AuthHandler : RequestHandler
     public void LoginUser()
     {
         var body = Bind<AuthModel>();
-        if (body is null || string.IsNullOrEmpty(body.email) || string.IsNullOrEmpty(body.password))
+        if (body is null || string.IsNullOrEmpty(body.phone) || string.IsNullOrEmpty(body.password))
         {
             Send(new AnswerModel(false, null, 400, "incorrect request"));
             return;
         }
 
-        var client = Client.GetClientAuth(body.email, body.password);
+        var client = Client.GetClientAuth(body.phone, body.password);
         if (client is null)
         {
             Send(new AnswerModel(false, null, 401, "incorrect request body"));
@@ -66,7 +66,7 @@ public class AuthHandler : RequestHandler
             return;
         }
 
-        var client = new Client(body.lastname, body.firstname, body.middlename == "" ? null : body.middlename, body.phone, body.date.ToDateTime(new TimeOnly())) {
+        var client = new Client(body.lastname, body.firstname, body.middlename == "" ? null : body.middlename, body.phone, DateOnly.Parse( body.birthdate)) {
             Email = body.email,
             Password = body.password
         };

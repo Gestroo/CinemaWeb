@@ -8,7 +8,7 @@ namespace WebServer.Models
 {
     public class RegModel
     {
-        public DateOnly date { get; set; }
+        public string birthdate { get; set; }
         public string password { get; set; }
         public string lastname { get; set; }
         public string firstname { get; set; }

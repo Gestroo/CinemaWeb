@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaLibrary.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,14 @@ namespace WebServer.Models
             this.middlename = middlename;
             this.phone = phone; 
             this.email = email;
+        }
+        public ClientModel(Client c) {
+            this.date = c.BirthDate.ToShortDateString();
+            this.lastname = c.LastName;
+            this.firstname = c.FirstName;
+            this.middlename = c.MiddleName;
+            this.phone = c.PhoneNumber;
+            this.email = c.Email;
         }
     }
     

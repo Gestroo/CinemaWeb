@@ -3,8 +3,7 @@ export interface Client {
 	lastname: string,
 	firstname: string,
 	middlename: string | undefined,
+	birthdate:string,
 	email: string,
 	phone: string,
-	login: string,
-	avatar: string | undefined
 }

@@ -16,14 +16,14 @@ namespace WebServer.Models
         public int Restriction { get; set; }
         public string Description { get; set; }
         public string Poster { get; set; }
-        public FilmModel(int id, string Name, int duration, GenreModel genre, int restriction,string description,string poster) { 
-            this.ID = id;
-            this.Name = Name;
-            this.Duration = duration;
-            this.Genre = genre;
-            this.Restriction = restriction; 
-            this.Description = description;
-            this.Poster = poster;
+        public FilmModel(Film f) { 
+            this.ID = f.ID;
+            this.Name = f.Name;
+            this.Duration = f.Duration;
+            this.Genre = new GenreModel(f.Genre);
+            this.Restriction = f.Restriction;
+            this.Description = f.Description;
+            this.Poster = f.Poster;
         }
     }
 }

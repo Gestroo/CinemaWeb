@@ -1,4 +1,4 @@
-import {Dropdown,Form,Button} from 'react-bootstrap';
+import {Form,Button, InputGroup} from 'react-bootstrap';
 import { RootState} from "../redux/store";
 import { useSelector} from "react-redux";
 
@@ -45,8 +45,19 @@ function Settings() {
                 <Form.Control type="email"  placeholder="Введите email" defaultValue={user.client.client!.email}/>
             </Form.Group>
         <Form.Group className="my-2">
+            
                 <Form.Label>Телефон</Form.Label>
-                <Form.Control type="text" placeholder="Телефон" defaultValue={user.client.client!.phone}/>
+                <InputGroup className="">
+                    <InputGroup.Text >
+                    +7
+                    </InputGroup.Text>
+                    <Form.Control type="text" placeholder="Телефон" defaultValue={user.client.client!.phone}/>
+                </InputGroup>
+                
+            </Form.Group>
+            <Form.Group className="my-2">
+                <Form.Label>Дата родждения</Form.Label>
+                <Form.Control type="date" placeholder="Повторите пароль" defaultValue={user.client.client!.birthdate} />
             </Form.Group>
             <Form.Group className="my-2">
                 <Form.Label>Пароль</Form.Label>
@@ -56,10 +67,7 @@ function Settings() {
                 <Form.Label>Повторите пароль</Form.Label>
                 <Form.Control type="password" placeholder="Повторите пароль" />
             </Form.Group>
-            <Form.Group className="my-2">
-                <Form.Label>Дата родждения</Form.Label>
-                <Form.Control type="date" placeholder="Повторите пароль" />
-            </Form.Group>
+           
             <Button variant="primary" className='mt-4' style={{
                 width: "50%",
                 margin:"0 auto"

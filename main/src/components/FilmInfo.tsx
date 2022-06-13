@@ -1,7 +1,6 @@
 import React from 'react';
-import {Button, Card,Image,Container} from 'react-bootstrap';
+import {Card,Image,Container} from 'react-bootstrap';
 import {useNavigate, useLocation} from 'react-router-dom';
-import joker from "../assets/img/joker.png";
 import FilmService from '../redux/services/FilmService';
 import SeanceService from '../redux/services/SeanceService';
 import {Film} from '../models/FilmModel'

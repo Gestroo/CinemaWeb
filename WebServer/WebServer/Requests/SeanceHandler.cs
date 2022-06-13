@@ -51,7 +51,7 @@ namespace WebServer.Requests
             List<SeanceModel> seances = new List<SeanceModel>();
             foreach (var s in rawseance)
             {
-                SeanceModel seance = new SeanceModel(s.ID, new HallModel(s.CinemaHall.HallNumber,s.CinemaHall.HallName,new List<RowModel>()), new FilmModel(s.Film.ID,s.Film.Name,s.Film.Duration,new GenreModel(s.Film.Genre.ID,s.Film.Genre.Title),s.Film.Restriction,s.Film.Description,s.Film.Poster), s.SeanceDate.ToString("d"),s.SeanceDate.ToString("t"),s.Cost) { };
+                SeanceModel seance = new SeanceModel(s) { };
                 seances.Add(seance);
             }
                 
@@ -72,20 +72,7 @@ namespace WebServer.Requests
                 Send(new AnswerModel(false, null, 401, "incorrect request body"));
                 return;
             }
-
-
-            SeanceModel seance = new SeanceModel(s.ID, new HallModel(s.CinemaHall.HallNumber, s.CinemaHall.HallName, new List<RowModel>()), new FilmModel(s.Film.ID, s.Film.Name, s.Film.Duration, new GenreModel(s.Film.Genre.ID, s.Film.Genre.Title), s.Film.Restriction, s.Film.Description, s.Film.Poster), s.SeanceDate.ToString("d"), s.SeanceDate.ToString("t"), s.Cost) { };
-            foreach (var r in s.CinemaHall.Rows)
-            {
-                var kakta = new RowModel(r.ID, r.RowNumber, new List<SeatModel>());
-                foreach (var seat in r.Seats.OrderBy(s=>s.SeatNumber))
-                {
-                    kakta.Seats.Add(new SeatModel(seat, s));
-
-                }
-                seance.CinemaHall.Rows.Add(kakta);
-            }
-
+            SeanceModel seance = new SeanceModel(s) { };
             Send(new AnswerModel(true, new { seance = seance }, null, null));
         }
     }

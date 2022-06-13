@@ -9,7 +9,6 @@ namespace CinemaLibrary.Entity
     public class Review
     {
         public int ID { get; set; }
-
         public Film Film { get; set; }
         public Client Client { get; set; }
         public int Rating { get; set; }

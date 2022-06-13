@@ -25,7 +25,7 @@ namespace WebServer.Requests
             List<GenreModel> genres = new List<GenreModel>();
             foreach (var g in rawgenres)
             {
-                GenreModel genre = new GenreModel(g.ID,g.Title);
+                GenreModel genre = new GenreModel(g);
                 genres.Add(genre);
             }
 

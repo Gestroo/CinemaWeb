@@ -32,7 +32,7 @@ namespace WebServer.Requests
 
             foreach (var f in rawfilms)
             {
-                FilmModel film = new FilmModel(f.ID,f.Name, f.Duration, new GenreModel(f.Genre.ID, f.Genre.Title), f.Restriction, f.Description, f.Poster) { };
+                FilmModel film = new FilmModel(f) { };
                 
                 films.Add(film);
             }
@@ -54,7 +54,7 @@ namespace WebServer.Requests
                 Send(new AnswerModel(false, null, 401, "incorrect request body"));
                 return;
             }
-            FilmModel film = new FilmModel(rawfilm.ID, rawfilm.Name, rawfilm.Duration, new GenreModel(rawfilm.Genre.ID, rawfilm.Genre.Title), rawfilm.Restriction, rawfilm.Description, rawfilm.Poster) {};
+            FilmModel film = new FilmModel(rawfilm) {};
             Send(new AnswerModel(true, new { film = film }, null, null));
         }
     }

@@ -14,6 +14,7 @@ interface State {
 	firstname: string,
 	phone: string,
 	middlename: string,
+    birthdate:string,
 	email: string,
 	mainpassword: string,
 	passwordcheck: string
@@ -26,6 +27,7 @@ function Registration() {
         firstname: '',
         phone: '',
         middlename: '',
+        birthdate:'',
         email: '',
         mainpassword: '',
         passwordcheck: ''
@@ -39,6 +41,7 @@ function Registration() {
 			firstname: values.firstname,
 			phone: values.phone,
 			middlename: values.middlename,
+            birthdate: values.birthdate,
 			email: values.email
 		};
 		AuthService.register(data).then((res) => {
@@ -61,13 +64,14 @@ function Registration() {
           width: "29%",
           textAlign:"center",    
       }}>Регистрация</h1>
-      <div className="mt-4  d-flex" style={{
+      <div className="mt-4" style={{
           margin: "0 auto",
           border:"2px solid #635654",
           borderRadius: "15px",
           width: "29%",
           backgroundColor:"#ffffff"
       }}>
+      <div className="d-flex" >
         <Form className="mx-4 my-2">
         <Form.Group className="my-2">
                 <Form.Label>Фамилия</Form.Label>
@@ -92,6 +96,10 @@ function Registration() {
                 <Form.Control type="text" onChange={handleChange("phone")} value={values.phone} placeholder="Телефон"/>
             </Form.Group>
             <Form.Group className="my-2">
+                <Form.Label>Дата рождения</Form.Label>
+                <Form.Control type="date" onChange={handleChange("birthdate")} value={values.birthdate} placeholder="Дата рождения"/>
+            </Form.Group>
+            <Form.Group className="my-2">
                 <Form.Label>Пароль</Form.Label>
                 <Form.Control type="password" onChange={handleChange("mainpassword")} value={values.mainpassword} placeholder="Введите пароль"/>
             </Form.Group>
@@ -99,11 +107,17 @@ function Registration() {
                 <Form.Label>Повторите пароль</Form.Label>
                 <Form.Control type="password" onChange={handleChange("passwordcheck")} value={values.passwordcheck} placeholder="Повторите пароль"/>
             </Form.Group>
-            <Button onClick={signUp} variant="primary"  style={{
-                marginTop: "2rem",
-                marginLeft: "0.5rem",
-            }}>Зарегистрироваться</Button>
         </Form>
+        
+            </div>
+            <div style={{
+                width:"100%"
+            }}>
+            <Button onClick={signUp} className="my-2" variant="primary"  style={{
+                marginLeft:"11rem"
+            }}>Зарегистрироваться</Button>
+            </div>
+            
         </div>
     </div>
   );

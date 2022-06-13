@@ -9,12 +9,13 @@ export interface RegistrationModel {
 	password: string,
 	lastname: string,
 	firstname: string,
+	birthdate:string,
 	phone: string,
 	middlename: string,
 	email: string
 }
 
 export interface LoginModel {
-	email: string,
+	phone: string,
 	password: string
 }

@@ -1,9 +1,6 @@
 import axios from 'axios';
-import {Answer, LoginModel, RegistrationModel} from "../../models/RequestModel";
-import {removeCookie, setCookie} from "typescript-cookie";
-import {RegisterSuccess, RegisterFail, LoginSuccess, LoginFail, Logout} from "../actions/authActions"
+import {Answer} from "../../models/RequestModel";
 import {Film} from "../../models/FilmModel";
-import {clientActions} from "../slices/clientslice";
 
 const API_URL = "http://localhost:8080/films/";
 

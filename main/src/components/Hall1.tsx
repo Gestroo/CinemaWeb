@@ -1,14 +1,16 @@
 import React from 'react';
-import {Button, Card} from 'react-bootstrap';
-import {Seance, SeanceHall} from '../models/SeanceModel'
-import {useNavigate, useLocation} from 'react-router-dom';
+import {Button} from 'react-bootstrap';
+import {SeanceHall} from '../models/SeanceModel'
+import {useLocation} from 'react-router-dom';
 import "../assets/css/hall1.css"
 import SeanceService from '../redux/services/SeanceService';
+import { Seat } from '../models/SeatModel';
 
 function Hall1() {
     const [totalCost,setTotalCost] = React.useState<number>(0);
-    const addCost=()=>{
-        setTotalCost(totalCost+seance!.Cost)
+    const [seats,setSeats]=React.useState<Seat[]>([])
+     const pickSeat=()=>{
+    
     }
     const [key,setKey]= React.useState<boolean>(false)
     const {search} = useLocation();
@@ -86,7 +88,7 @@ function Hall1() {
                                                 (
                                                     <Button variant="danger" className="seatButton bought button2digits">{seat.SeatNumber}</Button>
                                                 ):(
-                                                    <Button variant="light" onClick={addCost} className="seatButton button2digits">{seat.SeatNumber}</Button>
+                                                    <Button variant="light" onClick={pickSeat} className="seatButton button2digits">{seat.SeatNumber}</Button>
                                                 )
                                             }
                                             </>
@@ -106,7 +108,7 @@ function Hall1() {
                                                 (
                                                     <Button variant="danger" className="seatButton bought">{seat.SeatNumber}</Button>
                                                 ):(
-                                                    <Button variant="light" onClick={addCost} className="seatButton">{seat.SeatNumber}</Button> 
+                                                    <Button variant="light" onClick={pickSeat} className="seatButton">{seat.SeatNumber}</Button> 
                                                 )
                                             }
                                             </>

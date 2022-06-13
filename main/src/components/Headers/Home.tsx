@@ -180,7 +180,7 @@ function Home() {
 </div>
 
 </div>
-      <Container className='mt-4 mb-4 row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 col-lg-11 col-md-8 mx-auto'>
+      <Container className='mt-4 row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 col-lg-11 col-md-8 mx-auto'>
         {films.map((film)=>(
             <div className='col'>
             <Card onClick={()=> {navigate("/film?id="+ film.ID)}} className="mx-4 film"
@@ -203,79 +203,6 @@ function Home() {
           </div>
         ))}
       </Container>
-       {/* <div className="d-flex" style={{ 
-      justifyContent:"space-between",
-      
-    }}>
-       <Card onClick={()=> {navigate("/film")}} className="mx-4 film"
-       style={{
-        backgroundColor: "#635654",
-        borderColor: "#635654",
-        color:"#fff",
-      }}>
-        <Card.Body>
-          <Image src={joker}  style={{
-            width:"270px",
-            height:"360px"
-          }}>
-          </Image>
-          <h3 style={{
-            textAlign:"center",
-          }}>Джокер</h3>
-        </Card.Body>
-      </Card>
-      <Card className="mx-4"
-       style={{
-        backgroundColor: "#635654",
-        borderColor: "#635654",
-        color:"#fff"
-      }}>
-        <Card.Body>
-          <Image src={lotr}  style={{
-            width:"270px",
-            height:"360px"
-          }}>
-          </Image>
-          <h3 style={{
-            textAlign:"center",
-          }}>Властелин колец</h3>
-        </Card.Body>
-      </Card>
-      <Card className="mx-4" 
-       style={{
-        backgroundColor: "#635654",
-        borderColor: "#635654",
-        color:"#fff"
-      }}>
-        <Card.Body>
-          <Image src={harry}  style={{
-            width:"270px",
-            height:"360px"
-          }}> 
-          </Image>
-          <h3 style={{
-            textAlign:"center",
-          }}>Гарри Поттер</h3>
-        </Card.Body>
-      </Card>
-      <Card className="mx-4"
-       style={{
-        backgroundColor: "#635654",
-        borderColor: "#635654",
-        color:"#fff"
-      }}>
-        <Card.Body>
-          <Image src={matrix}  style={{
-            width:"270px",
-            height:"360px"
-          }}>
-          </Image>
-          <h3 style={{
-            textAlign:"center",
-          }}>Матрица</h3>
-        </Card.Body>
-      </Card>
-      </div> */}
     </div>
    
   );

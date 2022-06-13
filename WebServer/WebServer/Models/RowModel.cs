@@ -13,9 +13,12 @@ namespace WebServer.Models
         public int RowNumber { get; set; }
         public List<SeatModel> Seats { get; set; }
 
-        public RowModel(int id,int rowNumber,List<SeatModel> seats) { 
-            this.ID = id;
-            this.RowNumber = rowNumber;
+        public RowModel(HallRow row,Seance seance) {
+            this.ID = row.ID;
+            this.RowNumber = row.RowNumber;
+             List<SeatModel>  seats = new List<SeatModel>();
+            foreach (var s in row.Seats.OrderBy(s=>s.SeatNumber))
+                seats.Add(new SeatModel(s,seance));
             this.Seats = seats;
         }
     }

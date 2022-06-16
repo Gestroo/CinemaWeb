@@ -16,6 +16,8 @@ import Hall1 from "./components/Hall1"
 import {Provider} from "react-redux";
 import {store} from './redux/store';
 import Settings from './components/Settings';
+import Review from './components/Review';
+import MyReviews from './components/MyReviews';
 
 function App() {
  return(
@@ -40,6 +42,8 @@ ReactDOM.render(
     <Route path="/profile/tickethistory" element={<Profile/>}></Route>   
     <Route path="/tickets" element={<Hall1/>}></Route> 
     <Route path="/profile/settings" element={<Settings/>}></Route>
+    <Route path="/review" element={<Review/>}></Route>
+    <Route path="/myreviews" element={<MyReviews/>}></Route>
   </Routes>
 </BrowserRouter>
 </Provider>,

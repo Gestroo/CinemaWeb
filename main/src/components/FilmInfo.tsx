@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card,Image,Container} from 'react-bootstrap';
+import {Card,Image,Container,Button} from 'react-bootstrap';
 import {useNavigate, useLocation} from 'react-router-dom';
 import FilmService from '../redux/services/FilmService';
 import SeanceService from '../redux/services/SeanceService';
@@ -40,6 +40,7 @@ function FilmInfo() {
         backgroundColor: "#635654",
         borderColor: "#635654",
         color:"#fff",
+        width:"320px"
       }}>
         <Card.Body>
           <Image src={film?.Poster}  style={{
@@ -70,7 +71,7 @@ function FilmInfo() {
           </h6>
 
           <p>
-            {film?.Description}
+            Описание фильма: {film?.Description}
           </p>
         </div>
         

@@ -8,3 +8,9 @@ export interface Review{
     Rating:number,
     Comment:string,
 }
+export interface PostReview{
+    Film: Film,
+    Client:Client,
+    Rating:number,
+    Comment:string,
+}

@@ -34,7 +34,7 @@ function Registration() {
     })
     const navigate = useNavigate();
     const signUp = (event: any) => {
-		if (values.mainpassword !== values.passwordcheck) return;
+		if (values.mainpassword !== values.passwordcheck){console.log();return;} 
 		const data: RegistrationModel = {
 			password: sha256(values.mainpassword),
 			lastname: values.lastname,

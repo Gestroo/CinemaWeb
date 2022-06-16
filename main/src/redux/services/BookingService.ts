@@ -1,9 +1,5 @@
 import axios from 'axios';
-import {Answer, LoginModel, RegistrationModel} from "../../models/RequestModel";
-import {removeCookie, setCookie} from "typescript-cookie";
-import {RegisterSuccess, RegisterFail, LoginSuccess, LoginFail, Logout} from "../actions/authActions"
-import {Film} from "../../models/FilmModel";
-import {clientActions} from "../slices/clientslice";
+import {Answer} from "../../models/RequestModel";
 import { Booking } from '../../models/BookingModel';
 import authHeader from '../AuthHeader';
 
@@ -15,10 +11,28 @@ class BookingService {
           return axios.get(API_URL + "get",{headers:authHeader()})
             .then((response) => {
               const data: Answer = response.data;
-              if (data.status){
+             if (data.status){
                 const bookings : Booking[] = data.answer.bookings
+                console.log(bookings)
                 return bookings;
-              }
+             }
+             return []
+            })
+            .catch((error) => {
+              console.log(error);
+              return;
+            });
+        }
+        getBookingById(id: string) {
+          return axios.get(API_URL + "id?id="+id,{headers:authHeader()})
+            .then((response) => {
+              const data: Answer = response.data;
+              if (data.status){
+                const booking : Booking = data.answer.booking
+                console.log(booking)
+                return booking;
+              } 
+              return;
             })
             .catch((error) => {
               console.log(error);

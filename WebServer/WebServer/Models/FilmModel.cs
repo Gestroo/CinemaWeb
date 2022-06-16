@@ -25,5 +25,6 @@ namespace WebServer.Models
             this.Description = f.Description;
             this.Poster = f.Poster;
         }
+        public FilmModel() { }
     }
 }

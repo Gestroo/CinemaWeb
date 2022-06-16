@@ -19,7 +19,6 @@ namespace CinemaLibrary.Entity
         public int RowID { get; set; }
         public int SeatID { get; set; }
         public int PersonalID { get; set; }
-        [Required]
         public Personal Personal { get; set; }
         private static ApplicationContext db = Context.Db;
 

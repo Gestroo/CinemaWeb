@@ -53,7 +53,7 @@ public class AuthHandler : RequestHandler
         }
 
         var tokens = GenerateToken(client);
-        Send(new AnswerModel(true, new { access_token = tokens.Item1, refresh_token = tokens.Item2, user = new ClientModel(client.BirthDate.ToShortDateString(), client.LastName, client.FirstName, client.MiddleName, client.PhoneNumber, client.Email) }, null, null));
+        Send(new AnswerModel(true, new { access_token = tokens.Item1, refresh_token = tokens.Item2, user = new ClientModel(client.ID, client.BirthDate.ToShortDateString(), client.LastName, client.FirstName, client.MiddleName, client.PhoneNumber, client.Email) }, null, null));
     }
 
     [Post("/signup")]
@@ -76,7 +76,7 @@ public class AuthHandler : RequestHandler
             return;
         }
         var tokens = GenerateToken(client);
-        Send(new AnswerModel(true, new { access_token = tokens.Item1, refresh_token = tokens.Item2, user = new ClientModel(client.BirthDate.ToShortDateString(), client.LastName,client.FirstName,client.MiddleName,client.PhoneNumber,client.Email) }, null, null));
+        Send(new AnswerModel(true, new { access_token = tokens.Item1, refresh_token = tokens.Item2, user = new ClientModel(client.ID, client.BirthDate.ToShortDateString(), client.LastName,client.FirstName,client.MiddleName,client.PhoneNumber,client.Email) }, null, null));
     }
 
     [Get("/reauth")]

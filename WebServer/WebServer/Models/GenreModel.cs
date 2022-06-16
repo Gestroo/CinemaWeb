@@ -16,6 +16,6 @@ namespace WebServer.Models
             this.ID = g.ID;
             this.Title = g.Title;
         }
-
+        public GenreModel() { }
     }
 }

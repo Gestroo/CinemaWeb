@@ -26,22 +26,25 @@ namespace CinemaLibrary.Entity
         public string Poster { get; set; }
 
         public string ogranPlus { get { return $"{Restriction}+"; } }
-
-        private static ApplicationContext db = Context.Db;
+         
         public static List<string> GetFilmName()
         {
+            ApplicationContext db = Context.Db;
             return db.Film.Select(x => x.Name).ToList();
         }
-        public static List<Film> GetFilms() => db.Film.Include(f=>f.Genre).ToList(); //лямбда-выражение заменяет return
-
+        public static List<Film> GetFilms() {
+            using var db = new ApplicationContext();
+          return  db.Film.Include(f => f.Genre).ToList();
+        }
         public static void Add(Film film)
         {
+            ApplicationContext db = Context.Db;
             db.Film.Add(film);
             db.SaveChanges();
         }
         public static Film GetFilmByID(int id)
         {
-            using var db=new ApplicationContext();
+            ApplicationContext db = Context.Db;
             return db.Film.Where(f => f.ID == id).Include(f=>f.Genre).FirstOrDefault();
         }
     }

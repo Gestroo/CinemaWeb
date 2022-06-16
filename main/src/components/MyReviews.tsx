@@ -1,19 +1,19 @@
 import React from 'react';
 import {Dropdown,Container,Button} from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom';
-import { Booking } from '../models/BookingModel';
-import BookingService from '../redux/services/BookingService';
+import { Review } from '../models/ReviewModel';
+import ReviewService from '../redux/services/ReviewService';
 
-function Profile() {
+function MyReviews() {
     const navigate = useNavigate();
 const[key,setKey] = React.useState<boolean>(false)
-const[bookings,setBookings]=React.useState<Booking[]>([])
+const[reviews,setReviews]=React.useState<Review[]>([])
 
 React.useEffect(() => {
     if (key) return;
-    BookingService.getBookingsByClientId().then((res:any)=>{setBookings(res)})
+    ReviewService.getReviewsByClientId().then((res:any)=>{setReviews(res)})
     setKey(true)
-  }, [bookings,key])
+  }, [reviews,key])
 
   return (
     <div className="d-flex flex-column align-items-center" style={{
@@ -24,7 +24,7 @@ React.useEffect(() => {
             <div className=''  style={{
                 height:"100%",
             }}>
-                <h2 className='mt-4 mx-auto'>История заказов</h2>
+                <h2 className='mt-4 mx-auto'>Мои отзывы</h2>
             <Dropdown style={{
                 border:"1px solid #D0B3AA",
                 borderRadius:"15px"
@@ -43,7 +43,7 @@ React.useEffect(() => {
             </Dropdown>
             </div>
             <Container className='mt-4 row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 col-lg-11 col-md-8 mx-auto'>
-        {bookings.map((booking)=>(
+        {reviews.map((review)=>(
             <div className='col'>
             <div className="mx-4 "
        style={{
@@ -55,32 +55,16 @@ React.useEffect(() => {
       }}>    
           <h3 style={{
             textAlign:"center",
-          }}>{booking.Ticket.Seance.Film.Name}</h3>
+          }}>{review.Film.Name}</h3>
           <h4 style={{
             textAlign:"center",
           }}>
-            {booking.Ticket.Seance.SeanceDate}  {booking.Ticket.Seance.SeanceTime}
+            Оценка: {review.Rating}
           </h4>
-          <div className="my-2 mx-4 d-flex" style={{
-            justifyContent:'space-between'
-          }}>
-          <Button style={{
-            backgroundColor:"#D0B3AA",
-            borderColor:"#D0B3AA",
-            color:"#000",
-            fontWeight: "bold",
-          }}> Подробнее</Button>
-          <Button onClick={()=>{navigate("/review?id="+booking.Ticket.Seance.Film.ID)}} style={{
-           backgroundColor:"#D0B3AA",
-           borderColor:"#D0B3AA",
-           color:"#000",
-           fontWeight: "bold",
-           
-          }}>
-            Написать отзыв
-          </Button>
-          </div>
-          
+          <h5 style={{
+            textAlign:"center",}}>
+                {review.Comment}
+          </h5> 
       </div>
           </div>
         ))}
@@ -89,4 +73,4 @@ React.useEffect(() => {
   );
 }
 
-export default Profile;
+export default MyReviews;

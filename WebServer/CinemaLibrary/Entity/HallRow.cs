@@ -20,9 +20,9 @@ namespace CinemaLibrary.Entity
         {
             return db.HallRow.FirstOrDefault(h => h.RowNumber == rowNumber);
         }
-        public static HallRow FindSeat(int row, int number)
+        public static HallSeat FindSeat(int row, int number)
         {
-            return db.HallRow.FirstOrDefault(r => r.RowNumber == row && r.Seats.Any(s=>s.SeatNumber == number));
+            return db.HallRow.FirstOrDefault(r => r.RowNumber == row && r.Seats.Any(s=>s.SeatNumber == number)).Seats[number-1];
         }
     }
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Answer, LoginModel, RegistrationModel} from "../../models/RequestModel";
+import {Answer} from "../../models/RequestModel";
 import {Genre} from "../../models/GenreModel";
 
 const API_URL = "http://localhost:8080/genres/";
@@ -11,8 +11,11 @@ class GenreService {
             .then((response) => {
                 console.log(response.data);
                 const data: Answer = response.data;
-                const genres: Genre[] = data.answer.genres
-                return genres;
+                if (data.status){
+                  const genres: Genre[] = data.answer.genres
+                  return genres;
+                }
+                return []
               })
               .catch((error) => {
                 console.log(error);

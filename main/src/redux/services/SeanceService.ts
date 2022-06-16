@@ -9,8 +9,11 @@ class SeanceService {
         return axios.get(API_URL + "filmId?id="+id)
           .then((response) => {
             const data: Answer = response.data;
-            const seances : Seance[] = data.answer.seances;
-            return seances;
+            if (data.status){
+              const seances : Seance[] = data.answer.seances;
+              return seances;
+            }
+            return[]
           })
           .catch((error) => {
             console.log(error);
@@ -21,9 +24,12 @@ class SeanceService {
         return axios.get(API_URL + "id?id="+id)
           .then((response) => {
             const data: Answer = response.data;
-            const seance : SeanceHall = data.answer.seance
-            console.log(seance)
-            return seance;
+            if (data.status){
+              const seance : SeanceHall = data.answer.seance
+              console.log(seance)
+              return seance;
+            }
+            return;
           })
           .catch((error) => {
             console.log(error);

@@ -35,6 +35,10 @@ cursor:pointer;
 margin-top: 0.7rem;
 margin-left: 1rem;
 }
+.marginRatingArrow::after{
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  }
 .form-range::-webkit-slider-thumb{
   background:#D0B3AA;
   border: 1px solid #D0B3AA;

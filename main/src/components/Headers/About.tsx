@@ -4,11 +4,18 @@ import {Card} from 'react-bootstrap';
 function About() {
   return (
     <div>
-       <Card>
-        <Card.Body>
-          О нас
-        </Card.Body>
-      </Card>
+       <h2 className='mt-4' style={{ 
+        backgroundColor:"#635654",
+        color:"#fff",
+        textAlign:"center", }}>
+О нас
+       </h2>
+       <h4 className="mt-4" style={{ 
+        backgroundColor:"#635654",
+        color:"#fff",
+        textAlign:"center", }}>
+        Веб-приложение разработано студентом группы ИТб-2301 Широковым Дмитрием Романовичем при поддержке Земцова М.А.
+       </h4>
     </div>
   );
 }

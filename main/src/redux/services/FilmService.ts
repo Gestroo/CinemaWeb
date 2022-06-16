@@ -11,8 +11,11 @@ class FilmService {
             .then((response) => {
                 console.log(response.data);
                 const data: Answer = response.data;
-                const films: Film[] = data.answer.films
-                return films;
+                if (data.status){
+                  const films: Film[] = data.answer.films
+                  return films;
+                }
+                return []
               })
               .catch((error) => {
                 console.log(error);
@@ -23,8 +26,11 @@ class FilmService {
           return axios.get(API_URL + "id?id="+id)
             .then((response) => {
               const data: Answer = response.data;
-              const film : Film = data.answer.film
-              return film;
+              if (data.status){
+                const film : Film = data.answer.film
+                return film;
+              }
+              return;
             })
             .catch((error) => {
               console.log(error);

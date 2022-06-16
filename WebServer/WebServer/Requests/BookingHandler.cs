@@ -10,7 +10,7 @@ using WebServer.Models;
 
 namespace WebServer.Requests
 {
-    [RequestHandlerPath("/films")]
+    [RequestHandlerPath("/bookings")]
     public class BookingHandler:RequestHandler
     {
         [Get("get")]
@@ -36,12 +36,42 @@ namespace WebServer.Requests
             List<BookingModel> bookings = new List<BookingModel>();
             foreach (var b in rawbookings)
             {
-           //    BookingModel booking = new BookingModel(b.ID,b.DateTime.ToString(),new TicketModel(b.Ticket.ID,) ,client,b.isBought) { };
+               BookingModel booking = new BookingModel(b,client) { };
 
-             //   bookings.Add(booking);
+                bookings.Add(booking);
             }
 
-           // Send(new AnswerModel(true, new { films = films }, null, null));
+            Send(new AnswerModel(true, new { bookings = bookings }, null, null));
+        }
+
+        [Get("id")]
+        public void GetBookingByID()
+        {
+            if (!Params.TryGetValue("id", out var id))
+            {
+                Send(new AnswerModel(false, null, 401, "incorrect request body"));
+                return;
+            }
+            if (!Headers.TryGetValue("Access-Token", out var token) && !TokenWorker.CheckToken(token))
+            {
+                Send(new AnswerModel(false, null, 401, "incorrect request body"));
+                return;
+            }
+            var client = TokenWorker.GetClientByToken(token);
+            if (client is null)
+            {
+                Send(new AnswerModel(false, null, 401, "incorrect request body"));
+                return;
+            }
+            var b = Booking.GetBookingByID(int.Parse(id));
+
+            if (b == null)
+            {
+                Send(new AnswerModel(false, null, 401, "incorrect request body"));
+                return;
+            }
+            BookingModel booking = new BookingModel(b,client) { };
+            Send(new AnswerModel(true, new { booking = booking }, null, null));
         }
     }
 }

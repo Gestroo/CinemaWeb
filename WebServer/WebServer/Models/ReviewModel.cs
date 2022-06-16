@@ -22,5 +22,6 @@ namespace WebServer.Models
             this.Rating = r.Rating;
             this.Comment = r.Comment;
         }
+        public ReviewModel() { }
     }
 }

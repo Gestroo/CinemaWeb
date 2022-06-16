@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -39,11 +40,17 @@ namespace CinemaLibrary.Entity
             return db.Client.FirstOrDefault(c => c.Bookings.Any(r => r.Ticket == Ticket.FindTicket(seance, row, seat)));
         }
         public static Client? FindClientByPhoneNumber(string phonenumber) {
-            using var db = new ApplicationContext();
+            ApplicationContext db = Context.Db;
             return db.Client.FirstOrDefault(c => c.PhoneNumber == phonenumber);
+        }
+        public static Client? FindClientByID(int id)
+        {
+            ApplicationContext db = Context.Db;
+            return db.Client.FirstOrDefault(c => c.ID == id);
         }
         public static bool Add(Client client)
         {
+            using var db = new ApplicationContext();
             try {
                 db.Client.Add(client);
                 db.SaveChanges();
@@ -52,6 +59,17 @@ namespace CinemaLibrary.Entity
             catch {
                 return false;
             }
+        }
+        public bool Update()
+        {
+            ApplicationContext db = Context.Db;
+            try { db.SaveChanges();
+                return true;
+            }
+            catch {
+                return false;
+            }
+            
         }
         public override string GetFullName()
         {

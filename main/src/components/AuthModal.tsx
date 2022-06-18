@@ -42,7 +42,7 @@ function AuthModal(props: AuthProps){
                 dispatch(res)
                 if (res.type === clientActions.loginSuccess.type) {
                     logInHandleClose();
-                    navigate("/");
+                    navigate(0);
                     
                 }
             })

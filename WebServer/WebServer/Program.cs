@@ -1,6 +1,7 @@
 ﻿using RestPanda;
 using Trivial.Security;
 using CinemaLibrary;
+using CinemaLibrary.Entity;
 
 namespace WebServer;
 
@@ -17,6 +18,7 @@ internal class Program
         config.AddHeader("access-control-allow-headers", "*");
         var server = new PandaServer(config, new Uri("http://localhost:8080/"));
         server.Start();
+        Seance.GetSeances();
         Console.WriteLine("Server started");
         Console.Read();
         server.Stop();

@@ -25,6 +25,10 @@ namespace CinemaLibrary.Entity
         {
             return db.Personal.Where(g => g.Login == Login && g.Password == Password).FirstOrDefault();
         }
+        public static Personal GetCashier() {
+            ApplicationContext db = Context.Db;
+            return db.Personal.Where(p=>p.Role.ID==2).First();
+        }
         public override string GetFullName()
         {
             if (RoleID == 2)

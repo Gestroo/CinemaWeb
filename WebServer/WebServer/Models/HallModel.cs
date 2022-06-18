@@ -23,5 +23,6 @@ namespace WebServer.Models
             this.Rows = rows;
 
         }
+        HallModel() { }
     }
 }

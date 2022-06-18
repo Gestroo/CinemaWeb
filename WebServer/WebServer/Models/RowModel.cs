@@ -21,5 +21,6 @@ namespace WebServer.Models
                 seats.Add(new SeatModel(s,seance));
             this.Seats = seats;
         }
+        public RowModel() { }
     }
 }

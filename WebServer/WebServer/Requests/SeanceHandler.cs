@@ -58,6 +58,7 @@ namespace WebServer.Requests
             Send(new AnswerModel(true, new { seances = seances }, null, null));
         }
         [Get("id")]
+        [ResponseTimeout(100000)]
         public void GetSeancesByID()
         {
             if (!Params.TryGetValue("id", out var id))

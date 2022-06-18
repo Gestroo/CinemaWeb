@@ -7,21 +7,21 @@ const API_URL = "http://localhost:8080/clients/";
 
 class ClientService{
 
-    editClient(data:Client){
-        return axios.post(API_URL + "edit",data,{headers:authHeader()})
+    editClient(user:Client){
+        return axios.post(API_URL + "edit",user,{headers:authHeader()})
         .then((response) => {
             const data: Answer = response.data;
             if (data.status){
               const client: Client = data.answer.client;
               localStorage.setItem('user', JSON.stringify(client));
               console.log(client);
-              return data.status;
+              return client;
             }
-            return data.status
+            return user
           })
           .catch((error) => {
             console.log(error);
-            return false;
+            return user;
           });
     }
 

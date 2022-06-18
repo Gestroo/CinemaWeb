@@ -28,10 +28,10 @@ namespace CinemaLibrary.Entity
             using var db = new ApplicationContext();
             return db.Ticket.FirstOrDefault(t => t.Seance == seance && t.Row.RowNumber == row && t.Seat.SeatNumber == seat);
         }
-        public static void Add(Ticket ticket)
+        public void Add()
         {
-            db.Ticket.Add(ticket);
-            db.SaveChanges();
+            ApplicationContext db = Context.Db;
+            db.Ticket.Add(this);
         }
 
     }

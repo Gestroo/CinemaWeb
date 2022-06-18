@@ -21,7 +21,7 @@ namespace CinemaLibrary.Entity
             ReservedSeances = new List<Seance>();
         }
         public static HallSeat GetSeatByID(int id) {
-            using var db = new ApplicationContext();
+            ApplicationContext db = Context.Db;
             return db.HallSeat.FirstOrDefault(s => s.ID == id);
         }
     }

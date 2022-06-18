@@ -24,5 +24,10 @@ namespace CinemaLibrary.Entity
         {
             return db.HallRow.FirstOrDefault(r => r.RowNumber == row && r.Seats.Any(s=>s.SeatNumber == number)).Seats[number-1];
         }
+        public static HallRow FindRowBySeatID(int seatId,int hallId) {
+            ApplicationContext db = Context.Db;
+            int id = ((seatId - 1) / 10) + 1;
+        return db.HallRow.FirstOrDefault(r => r.RowNumber == id&&r.CinemaHallID==hallId); 
+        }
     }
 }

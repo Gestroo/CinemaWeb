@@ -1,20 +1,57 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
+import {Button, Modal} from 'react-bootstrap';
+import {Seance} from '../models/SeanceModel'
 import {SeanceHall} from '../models/SeanceModel'
 import {useLocation} from 'react-router-dom';
 import "../assets/css/hall1.css"
 import SeanceService from '../redux/services/SeanceService';
+import { useSelector} from "react-redux";
+import { RootState} from "../redux/store";
 import { Seat } from '../models/SeatModel';
+import AuthModal from './AuthModal';
+import { Tickets } from '../models/TicketModel';
+import TicketService from '../redux/services/TicketService';
+
 
 function Hall1() {
-    const [totalCost,setTotalCost] = React.useState<number>(0);
-    const [seats,setSeats]=React.useState<Seat[]>([])
-     const pickSeat=()=>{
-    
-    }
-    const [key,setKey]= React.useState<boolean>(false)
-    const {search} = useLocation();
     const [seance, setSeance] = React.useState<SeanceHall>();
+    const [pickedSeats,setPickedSeats]=React.useState<Seat[]>([])
+    const [values, setValues] = React.useState<Tickets>({
+        ID:0,
+        Seance: 0,
+        Seat: pickedSeats,
+        DateTime:""
+    })
+
+
+    
+    const [show, setShow] = React.useState(false);
+    const [buyShow, setBuyShow] = React.useState(false);
+    const user = useSelector((state: RootState) => state);
+    const buyHandleClose = () => setBuyShow(false);
+    const buyHandleShow = () => setBuyShow(true);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [open, setOpen] = React.useState(false);
+    
+     const pickSeat=(seat:Seat)=>{
+    if (pickedSeats.includes(seat)){
+        setPickedSeats((pickedSeats)=>[...pickedSeats.filter(i=>i !== seat)]);
+        const button = document.getElementById(seat.ID.toString());
+        button!.style.backgroundColor="#F8F9FA";
+        button!.style.borderColor="#F8F9FA";
+    }
+    else {
+        setPickedSeats(pickedSeats=>[...pickedSeats,seat]);
+        const button = document.getElementById(seat.ID.toString());
+        button!.style.backgroundColor="#787272";
+        button!.style.borderColor="#787272";
+    }
+    }
+    const [cost,setCost] = React.useState<number>(0);
+    const [key,setKey]= React.useState<boolean>(false);
+    const {search} = useLocation();
+   
     const searchParams = new URLSearchParams(search);
     const seanceId = searchParams.get("id");
 
@@ -23,6 +60,7 @@ function Hall1() {
         SeanceService.getSeanceById(seanceId!).then((res) => {
           if(res!== undefined){
             setSeance(res);
+            setCost(res.Cost);
           }
         })
         setKey(true);
@@ -80,15 +118,15 @@ function Hall1() {
                                     {
                                         (seat.Status==="Забронировано")?
                                         (
-                                            <Button variant="info" className="seatButton reserved button2digits">{seat.SeatNumber}</Button>
+                                            <Button id={seat!.ID.toString()} variant="info" className="seatButton reserved button2digits">{seat.SeatNumber}</Button>
                                         ):(
                                             <>
                                             {
                                                 (seat.Status==="Куплено")?
                                                 (
-                                                    <Button variant="danger" className="seatButton bought button2digits">{seat.SeatNumber}</Button>
+                                                    <Button id={seat!.ID.toString()} variant="danger" className="seatButton bought button2digits">{seat.SeatNumber}</Button>
                                                 ):(
-                                                    <Button variant="light" onClick={pickSeat} className="seatButton button2digits">{seat.SeatNumber}</Button>
+                                                    <Button id={seat!.ID.toString()} variant="light" onClick={e=>{pickSeat(seat)}} className="seatButton button2digits">{seat.SeatNumber}</Button>
                                                 )
                                             }
                                             </>
@@ -100,15 +138,15 @@ function Hall1() {
                                     {
                                         (seat.Status==="Забронировано")?
                                         (
-                                            <Button variant="info" className="seatButton reserved">{seat.SeatNumber}</Button>
+                                            <Button id={seat!.ID.toString()} variant="info" className="seatButton reserved">{seat.SeatNumber}</Button>
                                         ):(
                                             <>
                                             {
                                                 (seat.Status==="Куплено")?
                                                 (
-                                                    <Button variant="danger" className="seatButton bought">{seat.SeatNumber}</Button>
+                                                    <Button id={seat!.ID.toString()} variant="danger" className="seatButton bought">{seat.SeatNumber}</Button>
                                                 ):(
-                                                    <Button variant="light" onClick={pickSeat} className="seatButton">{seat.SeatNumber}</Button> 
+                                                    <Button id={seat!.ID.toString()} variant="light" onClick={e=>{pickSeat(seat)}} className="seatButton">{seat.SeatNumber}</Button> 
                                                 )
                                             }
                                             </>
@@ -191,27 +229,83 @@ function Hall1() {
             <p className="mt-4" style={{
                 textAlign:"center",
                 fontSize:"32px",
-            }}>Сумма:{totalCost}</p>
+            }}>Сумма:{pickedSeats.length*cost}</p>
             <div className='d-flex' style={{
                 margin:"auto 0",
                 justifyContent:"center",
             }}>
-            <Button className="mx-4 mb-4" style={{
+            <Button onClick={()=>{
+                if (user.client.isAuth){
+                    setValues({ID:0,
+                        Seance: seance!.ID,
+                        Seat: pickedSeats,
+                        DateTime:""})
+                handleShow();
+            }
+            else{setOpen(true)}
+        }} className="mx-4 mb-4" style={{
                backgroundColor:"#4794b5",
                borderColor:"#4794b5"
             }}>
                 Забронировать
             </Button>
-            <Button className="mx-4 mb-4" style={{
+            <Button onClick={e=>{if (user?.client.isAuth){
+                setValues({ID:0,
+                    Seance: seance!.ID,
+                    Seat: pickedSeats,
+                    DateTime:""})
+                buyHandleShow();
+            }
+            else{setOpen(true)}
+        }} className="mx-4 mb-4" style={{
                 backgroundColor:"#c44747",
                 borderColor:"#c44747"
             }}>
                 Купить
             </Button>
             </div>
-            
-
         </div>
+        <Modal show={show}
+        onHide={handleClose} backdrop="static">
+            <Modal.Header>
+                <Modal.Title>
+                    Подтверждение
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                Количество мест : {pickedSeats.length}<br/>
+                К оплате : {pickedSeats.length*cost}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Отмена
+                </Button>
+                <Button onClick={e=>{ console.log(values); TicketService.BookTicket(values)}}>
+                    Подтвердить
+                </Button>
+            </Modal.Footer>
+        </Modal>
+        <Modal show={buyShow}
+        onHide={buyHandleClose} backdrop="static">
+            <Modal.Header>
+                <Modal.Title>
+                    Подтверждение
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                Количество мест : {pickedSeats.length}<br/>
+                К оплате : {pickedSeats.length*cost}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={buyHandleClose}>
+                    Отмена
+                </Button>
+                <Button onClick={e=>{TicketService.BuyTicket(values)}}>
+                    Оплатить
+                </Button>
+            </Modal.Footer>
+        </Modal>
+        <AuthModal open={open} handlerClose={() => setOpen(false)}/>
     </div>
   );
 }

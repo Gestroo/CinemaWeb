@@ -24,15 +24,17 @@ namespace CinemaLibrary.Entity
             using var db = new ApplicationContext();
             return db.Booking.Include(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.Film).ThenInclude(f => f.Genre).Include(b => b.Ticket).ThenInclude(t => t.Row).Include(b => b.Ticket).ThenInclude(t => t.Seat).Include(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.CinemaHall).First(b=>b.ID == id);
         }
-        public static void Add(Booking booking)
+        public void Add()
         {
-            db.Add(booking);
+            ApplicationContext db = Context.Db;
+            db.Add(this);
+        }
+        public static void Save()
+        {
+            ApplicationContext db = Context.Db;
             db.SaveChanges();
         }
-        public void Save()
-        {
-            db.SaveChanges();
-        }
+
     }
 
 }

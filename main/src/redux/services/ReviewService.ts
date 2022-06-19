@@ -3,6 +3,7 @@ import {Answer} from "../../models/RequestModel";
 import authHeader from '../AuthHeader';
 import { Client } from '../../models/ClientModel';
 import { PostReview, Review } from '../../models/ReviewModel';
+import NewReview from '../../components/Review';
 
 const API_URL = "http://localhost:8080/reviews/";
 

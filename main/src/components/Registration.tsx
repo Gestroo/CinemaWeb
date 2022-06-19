@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Form,Button} from 'react-bootstrap';
+import {Form,Button,Toast,ToastContainer, InputGroup} from 'react-bootstrap';
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../redux/store";
 import AuthService from "../redux/services/AuthService";
@@ -21,6 +21,9 @@ interface State {
 }
 
 function Registration() {
+
+    const [show, setShow] = useState(false);
+    const toggleShow = () => setShow(!show);
     const dispatch = useDispatch<AppDispatch>();
     const [values, setValues] = useState<State>({
         lastname: '',
@@ -34,7 +37,7 @@ function Registration() {
     })
     const navigate = useNavigate();
     const signUp = (event: any) => {
-		if (values.mainpassword !== values.passwordcheck){console.log();return;} 
+		if (values.mainpassword !== values.passwordcheck){toggleShow();return;} 
 		const data: RegistrationModel = {
 			password: sha256(values.mainpassword),
 			lastname: values.lastname,
@@ -62,7 +65,8 @@ function Registration() {
           margin: "0 auto", 
           justifyContent:"", 
           width: "29%",
-          textAlign:"center",    
+          textAlign:"center",   
+        color:"#fff" 
       }}>Регистрация</h1>
       <div className="mt-4" style={{
           margin: "0 auto",
@@ -92,8 +96,20 @@ function Registration() {
         </Form>
         <Form className="mx-4 my-2">
         <Form.Group className="my-2">
-                <Form.Label>Телефон</Form.Label>
-                <Form.Control type="text" onChange={handleChange("phone")} value={values.phone} placeholder="Телефон"/>
+        <Form.Label>Телефон</Form.Label>
+                        <InputGroup className="">
+                            <InputGroup.Text >
+                            +7
+                            </InputGroup.Text>
+                        <Form.Control type="text" placeholder="Телефон" maxLength={10} value={values.phone} onChange={e => {
+                    if(!isNaN(Number(e.target.value))){
+                        setValues({...values,phone:  e.target.value.trim()});
+                    }
+                    else{
+                        setValues({...values,phone:e.target.value.substring(0, e.target.value.length - 1).trim()});
+                    }
+                  }}></Form.Control>
+                  </InputGroup>
             </Form.Group>
             <Form.Group className="my-2">
                 <Form.Label>Дата рождения</Form.Label>
@@ -119,6 +135,14 @@ function Registration() {
             </div>
             
         </div>
+        <ToastContainer position="top-end">
+    <Toast show={show} bg="danger" autohide delay={3000} onClose={toggleShow}>
+    <Toast.Header>
+        <strong>Ошибка</strong>
+    </Toast.Header>
+    <Toast.Body>Пароли не совпадают</Toast.Body>
+  </Toast>
+    </ToastContainer>
     </div>
   );
 }

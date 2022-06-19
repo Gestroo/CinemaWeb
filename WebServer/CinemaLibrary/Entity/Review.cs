@@ -18,11 +18,24 @@ namespace CinemaLibrary.Entity
         
         public static Review? CheckReview(int filmId,string phone) {
             ApplicationContext db = Context.Db;
-            return db.Review.Include(r=>r.Film).ThenInclude(f=>f.Genre).Include(r=>r.Client).FirstOrDefault(r=>r.Film.ID == filmId && r.Client.PhoneNumber == phone);
+            try
+            {
+                return db.Review.Include(r => r.Film).ThenInclude(f => f.Genre).Include(r => r.Client).FirstOrDefault(r => r.Film.ID == filmId && r.Client.PhoneNumber == phone);
+            }
+            catch 
+            {
+            return null;
+            }
         }
         public static List<Review> GetReviews(int id) {
-            using var db = new ApplicationContext();
-            return db.Review.Include(r => r.Film).ThenInclude(f => f.Genre).Include(r => r.Client).ThenInclude(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.Film).ThenInclude(f => f.Genre).Include(r => r.Client).ThenInclude(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Row).Include(r => r.Client).ThenInclude(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Seat).Include(r => r.Client).ThenInclude(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.CinemaHall).Where(r=>r.Client.ID == id).ToList();
+            ApplicationContext db = Context.Db;
+            try
+            {
+                return db.Review.Include(r => r.Film).ThenInclude(f => f.Genre).Include(r => r.Client).ThenInclude(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.Film).ThenInclude(f => f.Genre).Include(r => r.Client).ThenInclude(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Row).Include(r => r.Client).ThenInclude(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Seat).Include(r => r.Client).ThenInclude(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.CinemaHall).Where(r => r.Client.ID == id).ToList();
+            }
+            catch { 
+            return null;
+            }
         }
         public static void Add(Review review)
         {

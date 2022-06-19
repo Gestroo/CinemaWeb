@@ -1,7 +1,8 @@
 import React from 'react';
-import {Button, Modal} from 'react-bootstrap';
+import {Button, Modal,Toast,ToastContainer} from 'react-bootstrap';
 import {Seance} from '../models/SeanceModel'
 import {SeanceHall} from '../models/SeanceModel'
+import {useNavigate} from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 import "../assets/css/hall1.css"
 import SeanceService from '../redux/services/SeanceService';
@@ -14,6 +15,11 @@ import TicketService from '../redux/services/TicketService';
 
 
 function Hall1() {
+    const navigate = useNavigate();
+    const [toastBuyShow, setToastBuyShow] = React.useState<boolean>(false);
+    const toggleBuyShow = () => setToastBuyShow(!toastBuyShow);
+    const [toastBookShow, setToastBookShow] = React.useState<boolean>(false);
+    const toggleBookShow = () => setToastBookShow(!toastBookShow);
     const [seance, setSeance] = React.useState<SeanceHall>();
     const [pickedSeats,setPickedSeats]=React.useState<Seat[]>([])
     const [values, setValues] = React.useState<Tickets>({
@@ -280,7 +286,7 @@ function Hall1() {
                 <Button variant="secondary" onClick={handleClose}>
                     Отмена
                 </Button>
-                <Button onClick={e=>{ console.log(values); TicketService.BookTicket(values)}}>
+                <Button onClick={e=>{ TicketService.BookTicket(values).then((res:any)=>{if(res){handleClose();toggleBookShow();;setTimeout(()=>{navigate(0)},3000)}})} }>
                     Подтвердить
                 </Button>
             </Modal.Footer>
@@ -300,12 +306,28 @@ function Hall1() {
                 <Button variant="secondary" onClick={buyHandleClose}>
                     Отмена
                 </Button>
-                <Button onClick={e=>{TicketService.BuyTicket(values)}}>
+                <Button onClick={e=>{TicketService.BuyTicket(values).then((res:any)=>{if(res){buyHandleClose();toggleBuyShow();setTimeout(()=>{navigate(0)},3000)}})}}>
                     Оплатить
                 </Button>
             </Modal.Footer>
         </Modal>
         <AuthModal open={open} handlerClose={() => setOpen(false)}/>
+        <ToastContainer position="top-end">
+    <Toast show={toastBookShow} bg="success" autohide delay={3000} onClose={toggleBookShow}>
+    <Toast.Header>
+        <strong>Успешно</strong>
+    </Toast.Header>
+    <Toast.Body>Места забронированы</Toast.Body>
+  </Toast>
+    </ToastContainer>
+        <ToastContainer position="top-end">
+    <Toast show={toastBuyShow} bg="success" autohide delay={3000} onClose={toggleBuyShow}>
+    <Toast.Header>
+        <strong>Успешно</strong>
+    </Toast.Header>
+    <Toast.Body>Билет отправлен на вашу почту</Toast.Body>
+  </Toast>
+    </ToastContainer>
     </div>
   );
 }

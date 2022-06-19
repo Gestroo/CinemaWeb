@@ -31,26 +31,40 @@ namespace CinemaLibrary.Entity
         }
         public static Client FindClient(string lastName, string firstName, string middleName, string phoneNumber, DateOnly birthDate)
         {
-            using var db = new ApplicationContext();
+            ApplicationContext db = Context.Db;
             return db.Client.Where(c => c.LastName == lastName && c.FirstName == firstName && c.MiddleName == middleName && c.PhoneNumber == phoneNumber && c.BirthDate == birthDate).FirstOrDefault();
         }
         public static Client? FindClientByTicket(Seance seance, int row, int seat)
         {
-            using var db = new ApplicationContext();
+            ApplicationContext db = Context.Db;
             return db.Client.FirstOrDefault(c => c.Bookings.Any(r => r.Ticket == Ticket.FindTicket(seance, row, seat)));
         }
         public static Client? FindClientByPhoneNumber(string phonenumber) {
             ApplicationContext db = Context.Db;
-            return db.Client.FirstOrDefault(c => c.PhoneNumber == phonenumber);
+            try
+            {
+                return db.Client.FirstOrDefault(c => c.PhoneNumber == phonenumber);
+            }
+            catch { 
+                return null;
+            }
+            
         }
         public static Client? FindClientByID(int id)
         {
             ApplicationContext db = Context.Db;
-            return db.Client.FirstOrDefault(c => c.ID == id);
+            try
+            {
+                return db.Client.FirstOrDefault(c => c.ID == id);
+            }
+            catch
+            {
+                return null;
+            }
         }
         public static bool Add(Client client)
         {
-            using var db = new ApplicationContext();
+            ApplicationContext db = Context.Db;
             try {
                 db.Client.Add(client);
                 db.SaveChanges();
@@ -77,8 +91,16 @@ namespace CinemaLibrary.Entity
         }
         public static Client? GetClientAuth(string login, string pass)
         {
-            return db.Client.FirstOrDefault(
-                    c =>  c.PhoneNumber == login && c.Password == pass);
+            ApplicationContext db = Context.Db;
+            try
+            {
+                return db.Client.FirstOrDefault(
+                    c => c.PhoneNumber == login && c.Password == pass);
+            }
+            catch {
+                return null;
+            }
+            
         }
     }
 }

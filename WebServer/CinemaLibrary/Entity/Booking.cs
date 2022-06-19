@@ -17,22 +17,52 @@ namespace CinemaLibrary.Entity
         public Booking() { }
 
         public static List<Booking> GetBookings(int id) {
-            using var db = new ApplicationContext();
-            return db.Client.Include(c=>c.Bookings).ThenInclude(b=>b.Ticket).ThenInclude(t=>t.Seance).ThenInclude(s=>s.Film).ThenInclude(f=>f.Genre).Include(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t=>t.Row).Include(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Seat).Include(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.CinemaHall).First(c => c.ID == id).Bookings; 
+            ApplicationContext db = Context.Db;
+            try
+            {
+                return db.Client.Include(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.Film).ThenInclude(f => f.Genre).Include(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Row).Include(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Seat).Include(c => c.Bookings).ThenInclude(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.CinemaHall).First(c => c.ID == id).Bookings;
+            }
+            catch {
+                return null;
+            }
         }
         public static Booking GetBookingByID(int id) {
-            using var db = new ApplicationContext();
-            return db.Booking.Include(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.Film).ThenInclude(f => f.Genre).Include(b => b.Ticket).ThenInclude(t => t.Row).Include(b => b.Ticket).ThenInclude(t => t.Seat).Include(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.CinemaHall).First(b=>b.ID == id);
+            ApplicationContext db = Context.Db;
+            try
+            {
+                return db.Booking.Include(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.Film).ThenInclude(f => f.Genre).Include(b => b.Ticket).ThenInclude(t => t.Row).Include(b => b.Ticket).ThenInclude(t => t.Seat).Include(b => b.Ticket).ThenInclude(t => t.Seance).ThenInclude(s => s.CinemaHall).First(b => b.ID == id);
+            }
+            catch
+            {
+                return null;
+            }
         }
-        public void Add()
+        public bool Add()
         {
             ApplicationContext db = Context.Db;
-            db.Add(this);
+            try
+            {
+                db.Add(this);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
+            
         }
         public static void Save()
         {
             ApplicationContext db = Context.Db;
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch
+            {
+                return;
+            }
         }
 
     }

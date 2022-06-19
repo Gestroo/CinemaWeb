@@ -23,11 +23,18 @@ namespace CinemaLibrary.Entity
         public Personal(string LastName, string FirstName, string PhoneNumber) : base(LastName, FirstName, PhoneNumber) { }
         public static Personal GetPersonal(string Login, string Password)
         {
+            ApplicationContext db = Context.Db;
             return db.Personal.Where(g => g.Login == Login && g.Password == Password).FirstOrDefault();
         }
         public static Personal GetCashier() {
             ApplicationContext db = Context.Db;
-            return db.Personal.Where(p=>p.Role.ID==2).First();
+            try
+            {
+                return db.Personal.Where(p => p.Role.ID == 2).First();
+            }
+            catch {
+                return null;
+            }
         }
         public override string GetFullName()
         {

@@ -78,7 +78,7 @@ import AuthModal from "./AuthModal";
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     <Dropdown.Item onClick={()=> {navigate("/profile/tickethistory")}}>История заказов</Dropdown.Item>
-                    <Dropdown.Item onClick={()=> {navigate("/myreviews")}}>Мои Отзывы</Dropdown.Item>
+                    <Dropdown.Item onClick={()=> {navigate("/myreviews")}}>Мои отзывы</Dropdown.Item>
                     <Dropdown.Item onClick={()=> {navigate("/profile/settings")}}>Настройки</Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item onClick={()=>{dispatch(AuthService.logout());

@@ -33,19 +33,38 @@ namespace CinemaLibrary.Entity
             return db.Film.Select(x => x.Name).ToList();
         }
         public static List<Film> GetFilms() {
-            using var db = new ApplicationContext();
-          return  db.Film.Include(f => f.Genre).ToList();
+            ApplicationContext db = Context.Db;
+            try
+            {
+                return db.Film.Include(f => f.Genre).ToList();
+            }
+            catch { 
+            return null;
+            }
         }
-        public static void Add(Film film)
+        public static bool Add(Film film)
         {
             ApplicationContext db = Context.Db;
-            db.Film.Add(film);
-            db.SaveChanges();
+            try
+            {
+                db.Film.Add(film);
+                db.SaveChanges();
+                return true;
+            }
+            catch {
+                return false;
+            }
         }
         public static Film GetFilmByID(int id)
         {
             ApplicationContext db = Context.Db;
-            return db.Film.Where(f => f.ID == id).Include(f=>f.Genre).FirstOrDefault();
+            try
+            {
+                return db.Film.Where(f => f.ID == id).Include(f => f.Genre).FirstOrDefault();
+            }
+            catch {
+                return null;
+            }
         }
     }
 }

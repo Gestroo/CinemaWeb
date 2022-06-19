@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button,Form, Modal,InputGroup } from "react-bootstrap";
+import {Button,Form, Modal,InputGroup,Toast, ToastContainer } from "react-bootstrap";
 import {useNavigate} from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/index.css";
@@ -25,6 +25,8 @@ function AuthModal(props: AuthProps){
     const navigate = useNavigate();
     const logInHandleClose = () => props.handlerClose();
     const dispatch = useDispatch<AppDispatch>();
+    const [show, setShow] = useState(false);
+    const toggleShow = () => setShow(!show);
         const [values, setValues] = useState<State>({
             phone: '',
             password: ''
@@ -43,13 +45,14 @@ function AuthModal(props: AuthProps){
                 if (res.type === clientActions.loginSuccess.type) {
                     logInHandleClose();
                     navigate(0);
-                    
                 }
+                else {setShow(true)}
             })
 
         }
 
     return(
+        <>
     <Modal show={props.open} onHide={props.handlerClose} >
         <Modal.Header closeButton style={{
             backgroundColor: "#D0B3AA",
@@ -72,7 +75,14 @@ function AuthModal(props: AuthProps){
                             <InputGroup.Text >
                             +7
                             </InputGroup.Text>
-                        <Form.Control type="text" placeholder="Введите телефон" onChange={handleChange("phone")} style={{
+                        <Form.Control type="text" placeholder="Введите телефон" maxLength={10} value={values.phone} onChange={e => {
+                    if(!isNaN(Number(e.target.value))){
+                        setValues({...values,phone:  e.target.value.trim()});
+                    }
+                    else{
+                        setValues({...values,phone:e.target.value.substring(0, e.target.value.length - 1).trim()});
+                    }
+                  }} style={{
                        backgroundColor:"#D0B3AA", 
                     }}/>
                     </InputGroup>
@@ -107,7 +117,17 @@ function AuthModal(props: AuthProps){
             
             
         </Modal.Body>
-    </Modal>)
+    </Modal>
+    <ToastContainer position="top-end">
+    <Toast show={show} bg="danger" autohide delay={3000} onClose={toggleShow}>
+    <Toast.Header>
+        <strong>Ошибка</strong>
+    </Toast.Header>
+    <Toast.Body>Неверный телефон или пароль</Toast.Body>
+  </Toast>
+    </ToastContainer>
+   
+  </>)
 }
 
 

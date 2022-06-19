@@ -84,7 +84,14 @@ function Settings() {
                     <InputGroup.Text >
                     +7
                     </InputGroup.Text>
-                    <Form.Control type="text" onChange={handleChange("phone")} placeholder="Телефон" defaultValue={user.client.client!.phone}/>
+                    <Form.Control type="text" onChange={e => {
+                    if(!isNaN(Number(e.target.value))){
+                        setValues({...values,phone:  e.target.value.trim()});
+                    }
+                    else{
+                        setValues({...values,phone:e.target.value.substring(0, e.target.value.length - 1).trim()});
+                    }
+                  }} value={values.phone} placeholder="Телефон" defaultValue={user.client.client!.phone}/>
                 </InputGroup>
                 
             </Form.Group>

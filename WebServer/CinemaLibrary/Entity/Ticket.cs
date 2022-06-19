@@ -25,13 +25,26 @@ namespace CinemaLibrary.Entity
 
         public static Ticket? FindTicket(Seance seance, int row, int seat)
         {
-            using var db = new ApplicationContext();
-            return db.Ticket.FirstOrDefault(t => t.Seance == seance && t.Row.RowNumber == row && t.Seat.SeatNumber == seat);
+            ApplicationContext db = Context.Db;
+            try
+            {
+                return db.Ticket.FirstOrDefault(t => t.Seance == seance && t.Row.RowNumber == row && t.Seat.SeatNumber == seat);
+            }
+            catch { 
+            return null;
+            }
         }
-        public void Add()
+        public bool Add()
         {
             ApplicationContext db = Context.Db;
-            db.Ticket.Add(this);
+            try
+            {
+                db.Ticket.Add(this);
+                return true;
+            }
+            catch {
+                return false;
+            }
         }
 
     }

@@ -22,7 +22,16 @@ namespace CinemaLibrary.Entity
 
         public static List<CinemaHall> GetHalls()
         {
-            return db.CinemaHall.ToList();
+            ApplicationContext db = Context.Db; 
+            try
+            {
+                return db.CinemaHall.ToList();
+            }
+            catch
+            {
+                return null;
+            }
+            
         }
     }
 }

@@ -22,7 +22,13 @@ namespace CinemaLibrary.Entity
         }
         public static HallSeat GetSeatByID(int id) {
             ApplicationContext db = Context.Db;
-            return db.HallSeat.FirstOrDefault(s => s.ID == id);
+            try
+            {
+                return db.HallSeat.FirstOrDefault(s => s.ID == id);
+            }
+            catch { 
+            return null;    
+            }
         }
     }
 }

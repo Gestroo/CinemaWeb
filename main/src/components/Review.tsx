@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card,Image,Form,Button, Dropdown} from 'react-bootstrap';
+import {Card,Image,Form,Button, Dropdown,Toast,ToastContainer} from 'react-bootstrap';
 import {useNavigate, useLocation} from 'react-router-dom';
 import {Booking} from '../models/BookingModel'
 import { PostReview } from '../models/ReviewModel';
@@ -8,6 +8,8 @@ import "../assets/css/index.css"
 import ReviewService from '../redux/services/ReviewService';
 
 function NewReview() {
+  const [show, setShow] = React.useState<boolean>(false);
+  const toggleShow = () => setShow(!show);
   const [booking, setBooking] = React.useState<Booking>();
   const [rating,setRating] = React.useState<number>(0);
   const [comment,setComment] = React.useState<string>("")
@@ -46,7 +48,8 @@ const addReview=()=>{
           Rating:rating!,
           Comment:comment!,
   };
-      ReviewService.AddReview(data);
+     ReviewService.AddReview(data);
+    
   }
   React.useEffect(() => {
     if (key) return;
@@ -130,7 +133,14 @@ const addReview=()=>{
         
         </div>
         </div>
-        
+        <ToastContainer position="top-end">
+    <Toast show={show} bg="danger" autohide delay={3000} onClose={toggleShow}>
+    <Toast.Header>
+        <strong>Ошибка</strong>
+    </Toast.Header>
+    <Toast.Body>Неверный телефон или пароль</Toast.Body>
+  </Toast>
+    </ToastContainer>
         
         
       </div>

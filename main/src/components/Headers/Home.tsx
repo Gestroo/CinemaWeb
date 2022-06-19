@@ -13,19 +13,30 @@ import FilmService from '../../redux/services/FilmService';
 import GenreService from '../../redux/services/GenreService';
 
 function Home() {
-
-  const [minValue,setMinValue] = React.useState<number>(0) 
-  const [maxValue,setMaxValue] = React.useState<number>(200)
+  const [title,setTitle] = React.useState<string>("");
+  const [option,setOption] = React.useState<number>(0);
+  const [genre,setGenre] = React.useState<string>("");
+  const [restriction,setRestriction] = React.useState<number>(19);
+  const [minValue,setMinValue] = React.useState<number>(0) ;
+  const [maxValue,setMaxValue] = React.useState<number>(200);
   const showMinValue=(e:any)=>{
-    setMinValue(e.target.value)
+    setMinValue(e.target.value);
+    filterFilms(title,option,genre,restriction,e.target.value,maxValue)
   }
   const showMaxValue=(e:any)=>{
     setMaxValue(e.target.value)
+    filterFilms(title,option,genre,restriction,minValue,e.target.value)
+  }
+  const filterFilms = (title:string,option:number,genre:string,restriction:number,minDuration:number,maxDuration:number)=>{
+    FilmService.filterFilms(title,option,genre,restriction,minDuration,maxDuration).then((res) => {
+      console.log(res);
+      setFilms(res);
+    })
   }
   const navigate = useNavigate();
   const [films, setFilms] = React.useState<Film[]>([]);
   const [genres, setGenres] = React.useState<Genre[]>([]);
-  const [key,setKey] = React.useState<boolean>(false)
+  const [key,setKey] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if (key) return;
@@ -88,7 +99,7 @@ function Home() {
       height:"40px",
     }}
   >
-                <Form.Control type="text" placeholder="Название фильма" className="" style={{
+                <Form.Control type="text" value={title} onChange={e=>{setTitle(e.target.value);filterFilms(e.target.value,option,genre,restriction,minValue,maxValue)}} placeholder="Название фильма" className="" style={{
       height:"40px",
       paddingBottom:"1rem"
     }}/>
@@ -106,11 +117,11 @@ function Home() {
                             width:"65%"
                 }}>
                   Сортировать 
-                </Dropdown.Toggle>
-                <Dropdown.Menu >
-                    <Dropdown.Item>По рейтингу</Dropdown.Item>
-                    <Dropdown.Item>По алфавиту</Dropdown.Item>
-                    <Dropdown.Item>По длительности</Dropdown.Item>
+                </Dropdown.Toggle >
+                <Dropdown.Menu   >
+                    <Dropdown.Item onClick={e=>{setOption(1);filterFilms(title,1,genre,restriction,minValue,maxValue)}} value={1}>По рейтингу</Dropdown.Item>
+                    <Dropdown.Item onClick={e=>{setOption(2);filterFilms(title,2,genre,restriction,minValue,maxValue)}} value={2}>По алфавиту</Dropdown.Item>
+                    <Dropdown.Item onClick={e=>{setOption(3);filterFilms(title,3,genre,restriction,minValue,maxValue)}} value={3}>По длительности</Dropdown.Item>
                 </Dropdown.Menu>
 </Dropdown>
 <Dropdown>
@@ -127,7 +138,7 @@ function Home() {
                   overflowX:"hidden"
                 }}>
                 {genres.map((genre)=>(
-            <Dropdown.Item>{genre.Title}</Dropdown.Item>
+            <Dropdown.Item onClick={e=>{setGenre(genre.Title);filterFilms(title,option,genre.Title,restriction,minValue,maxValue)}}>{genre.Title}</Dropdown.Item>
         ))}
                   
                 </Dropdown.Menu>
@@ -141,11 +152,11 @@ function Home() {
                  Ограничение
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <Dropdown.Item>0+</Dropdown.Item>
-                    <Dropdown.Item>6+</Dropdown.Item>
-                    <Dropdown.Item>12+</Dropdown.Item>
-                    <Dropdown.Item>16+</Dropdown.Item>
-                    <Dropdown.Item>18+</Dropdown.Item>
+                    <Dropdown.Item onClick={e=>{setRestriction(0);filterFilms(title,option,genre,0,minValue,maxValue)}} value={0}>0+</Dropdown.Item>
+                    <Dropdown.Item onClick={e=>{setRestriction(6);filterFilms(title,option,genre,6,minValue,maxValue)}} value={6}>6+</Dropdown.Item>
+                    <Dropdown.Item onClick={e=>{setRestriction(12);filterFilms(title,option,genre,12,minValue,maxValue)}} value={12}>12+</Dropdown.Item>
+                    <Dropdown.Item onClick={e=>{setRestriction(16);filterFilms(title,option,genre,16,minValue,maxValue)}} value={16}>16+</Dropdown.Item>
+                    <Dropdown.Item onClick={e=>{setRestriction(18);filterFilms(title,option,genre,18,minValue,maxValue)}} value={18}>18+</Dropdown.Item>
                 </Dropdown.Menu>
 </Dropdown>
 <div style={{

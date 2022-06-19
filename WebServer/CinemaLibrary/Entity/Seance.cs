@@ -35,21 +35,28 @@ namespace CinemaLibrary.Entity
         public static void GetSeances()
         {
             ApplicationContext db = Context.Db; ;
-            seances = db.Seance.Include(s => s.Film).ThenInclude(f => f.Genre).Include(s => s.CinemaHall).ThenInclude(h => h.Rows).ThenInclude(r => r.Seats).Include(s => s.ReservedSeats).Include(s => s.BoughtSeats).ToList(); 
+            try
+            {
+                seances = db.Seance.Include(s => s.Film).ThenInclude(f => f.Genre).Include(s => s.CinemaHall).ThenInclude(h => h.Rows).ThenInclude(r => r.Seats).Include(s => s.ReservedSeats).Include(s => s.BoughtSeats).ToList();
+            }
+            catch {
+                return;
+            }
         }
         public static Seance GetSeance(DateTime dateTime, CinemaHall cinemaHall)
         {
-            using var db = new ApplicationContext();
+            ApplicationContext db = Context.Db;
             return db.Seance.Where(s => s.SeanceDate == dateTime).Where(s => s.CinemaHall == cinemaHall).FirstOrDefault();
         }
         public static void Add(Seance seance)
         {
+            ApplicationContext db = Context.Db;
             db.Seance.Add(seance);
             db.SaveChanges();
         }
         public static List<Seance> GetSeancesByFilm(int id) {
-            using var db = new ApplicationContext();
-            return db.Seance.Where(s => s.Film.ID == id).Include(s => s.Film).ThenInclude(f=>f.Genre).Include(s=>s.CinemaHall).Include(s=>s.ReservedSeats).Include(s=>s.BoughtSeats).ToList();
+            
+            return seances.Where(s => s.Film.ID == id).ToList();
         }
         public static Seance GetSeanceByID(int id)
         {
@@ -68,7 +75,7 @@ namespace CinemaLibrary.Entity
 
         public void Save()
         {
-            using var db = new ApplicationContext();
+            ApplicationContext db = Context.Db;
             db.SaveChanges();
         }
     }

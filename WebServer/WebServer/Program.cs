@@ -16,11 +16,9 @@ internal class Program
         var config = new PandaConfig();
         config.AddHeader("access-control-allow-origin", "*");
         config.AddHeader("access-control-allow-headers", "*");
-        var server = new PandaServer(config, new Uri("http://localhost:8080/"));
+        using var server = new PandaServer(config, new Uri("http://localhost:8080/"));
         server.Start();
-        Seance.GetSeances();
         Console.WriteLine("Server started");
         Console.Read();
-        server.Stop();
     }
 }

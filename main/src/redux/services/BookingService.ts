@@ -23,6 +23,22 @@ class BookingService {
               return;
             });
         }
+        filterBookings(option:number){
+          return axios.get(API_URL + "filter?option="+option)
+          .then((response) => {
+              console.log(response.data);
+              const data: Answer = response.data;
+              if (data.status){
+                const bookings: Booking[] = data.answer.bookings
+                return bookings;
+              }
+              return []
+            })
+            .catch((error) => {
+              console.log(error);
+              return []
+            });
+      }
         getBookingById(id: string) {
           return axios.get(API_URL + "id?id="+id,{headers:authHeader()})
             .then((response) => {

@@ -27,6 +27,8 @@ function AuthModal(props: AuthProps){
     const dispatch = useDispatch<AppDispatch>();
     const [show, setShow] = useState(false);
     const toggleShow = () => setShow(!show);
+    const [nullShow, setNullShow] = useState(false);
+    const toggleNullShow = () => setNullShow(!nullShow);
         const [values, setValues] = useState<State>({
             phone: '',
             password: ''
@@ -124,6 +126,14 @@ function AuthModal(props: AuthProps){
         <strong>Ошибка</strong>
     </Toast.Header>
     <Toast.Body>Неверный телефон или пароль</Toast.Body>
+  </Toast>
+    </ToastContainer>
+    <ToastContainer>
+    <Toast show={nullShow} bg="danger" autohide delay={3000} onClose={toggleNullShow}>
+    <Toast.Header>
+        <strong>Ошибка</strong>
+    </Toast.Header>
+    <Toast.Body>Заполните все поля</Toast.Body>
   </Toast>
     </ToastContainer>
    

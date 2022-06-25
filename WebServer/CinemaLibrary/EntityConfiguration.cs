@@ -81,6 +81,7 @@ namespace CinemaLibrary
             builder.Property(p => p.CinemaHallID).HasColumnName("cinemahall_id");
             builder.Property(p => p.FilmID).HasColumnName("film_id");
             builder.Property(p => p.SeanceDate).HasColumnName("seancedate");
+            builder.Property(p => p.Cost).HasColumnName("cost");
         }
         public static void TicketConfigure(EntityTypeBuilder<Ticket> builder)
         {

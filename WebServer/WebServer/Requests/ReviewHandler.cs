@@ -45,7 +45,7 @@ namespace WebServer.Requests
             }
                 
 
-            Send(new AnswerModel(true, new { review = review }, null, null));
+            Send(new AnswerModel(true, null, null, null));
         }
 
         [Get("get")]

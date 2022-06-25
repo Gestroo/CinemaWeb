@@ -2,9 +2,7 @@ import React from 'react';
 import {Card, Container, Carousel,Form,Dropdown,FloatingLabel, FormGroup, FormLabel} from 'react-bootstrap';
 import Image from 'react-bootstrap/Image'
 import "bootstrap/dist/css/bootstrap.min.css";
-import violet1 from "../../assets/img/Violet2.jpg";
-import violet2 from "../../assets/img/Violet3.jpg";
-import violet3 from "../../assets/img/violet6.jpg";
+import ad1 from "../../assets/img/ad.jpg"
 import {useNavigate} from 'react-router-dom';
 import "../../assets/css/index.css";
 import {Film} from "../../models/FilmModel";
@@ -52,23 +50,24 @@ function Home() {
       backgroundColor: "#635654",
     }}>
       <div  className="d-flex">
-        <Carousel className="mx-auto my-4" fade style={{
+        <Carousel variant="dark" className="mx-auto my-4"  fade style={{
           width:"640px",
+          backgroundColor:"#000"
         }}>
           <Carousel.Item>
-              <Image src={violet1} style={{
+              <Image src={ad1} style={{
                 width:"640px",
                 height:"360px",
               }}></Image>
             </Carousel.Item>
             <Carousel.Item>
-              <Image src={violet2} style={{
+              <Image src={ad1} style={{
                 width:"640px",
                 height:"360px",
               }}></Image>
             </Carousel.Item>
             <Carousel.Item>
-              <Image src={violet3} style={{
+              <Image src={ad1} style={{
                 width:"640px",
                 height:"360px",
               }}></Image>
@@ -114,7 +113,9 @@ function Home() {
                             backgroundColor: "#D0B3AA",
                             margin:"1rem 3rem 1rem 3rem" ,
                             borderColor:"#D0B3AA",
-                            width:"65%"
+                            fontWeight:"bold",
+                            width:"65%",
+                            color:"#000"
                 }}>
                   Сортировать 
                 </Dropdown.Toggle >
@@ -129,6 +130,8 @@ function Home() {
                             backgroundColor: "#D0B3AA",
                             margin:"1rem 3rem 1rem 3rem" ,
                             borderColor:"#D0B3AA",
+                            fontWeight:"bold",
+                            color:"#000"
                 }}>
                   Жанр 
                 </Dropdown.Toggle>
@@ -148,6 +151,8 @@ function Home() {
                             backgroundColor: "#D0B3AA",
                             margin:"1rem 3rem 1rem 3rem" ,
                             borderColor:"#D0B3AA",
+                            fontWeight:"bold",
+                            color:"#000"
                 }}>
                  Ограничение
                 </Dropdown.Toggle>
@@ -207,7 +212,9 @@ function Home() {
           }}>
           </Image>
           <h3 style={{
+            width:"270px",
             textAlign:"center",
+            margin:"auto 0"
           }}>{film.Name}</h3>
         </Card.Body>
       </Card>

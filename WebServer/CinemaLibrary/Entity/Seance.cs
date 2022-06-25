@@ -46,23 +46,41 @@ namespace CinemaLibrary.Entity
         public static Seance GetSeance(DateTime dateTime, CinemaHall cinemaHall)
         {
             ApplicationContext db = Context.Db;
-            return db.Seance.Where(s => s.SeanceDate == dateTime).Where(s => s.CinemaHall == cinemaHall).FirstOrDefault();
+            try
+            {
+                return db.Seance.Where(s => s.SeanceDate == dateTime).Where(s => s.CinemaHall == cinemaHall).FirstOrDefault();
+            }
+            catch {
+                return null;
+            }
         }
         public static void Add(Seance seance)
         {
             ApplicationContext db = Context.Db;
-            db.Seance.Add(seance);
-            db.SaveChanges();
+            try
+            {
+                db.Seance.Add(seance);
+                db.SaveChanges();
+            }
+            catch { 
+            return ;
+            }
         }
         public static List<Seance> GetSeancesByFilm(int id) {
-            
-            return seances.Where(s => s.Film.ID == id).ToList();
+            using var db = new ApplicationContext();
+            try
+            {
+                return db.Seance.Where(s => s.Film.ID == id).Include(s => s.Film).ThenInclude(f => f.Genre).Include(s => s.CinemaHall).ThenInclude(h => h.Rows).ThenInclude(r => r.Seats).ToList();
+            }
+            catch {
+                return null;
+            }
         }
         public static Seance GetSeanceByID(int id)
         {
-            return seances.Where(s => s.ID == id).First();
-          //  ApplicationContext db = Context.Db;
-          //  return db.Seance.Where(s => s.ID == id).Include(s => s.Film).ThenInclude(f => f.Genre).Include(s => s.CinemaHall).ThenInclude(h => h.Rows).ThenInclude(r => r.Seats).Include(s => s.ReservedSeats).Include(s => s.BoughtSeats).FirstOrDefault();
+         //   return seances.Where(s => s.ID == id).First();
+            ApplicationContext db = Context.Db;
+            return db.Seance.Where(s => s.ID == id).Include(s => s.Film).ThenInclude(f => f.Genre).Include(s => s.CinemaHall).ThenInclude(h => h.Rows).ThenInclude(r => r.Seats).Include(s => s.ReservedSeats).Include(s => s.BoughtSeats).FirstOrDefault();
         }
         public static string CheckSeatStatus(HallSeat seat,Seance seance) {
             string status="Свободно";

@@ -13,8 +13,9 @@ namespace WebServer.Requests
     [RequestHandlerPath("/bookings")]
     public class BookingHandler:RequestHandler
     {
+        List<BookingModel> filterBookings = new List<BookingModel>();
         [Get("get")]
-        public void GetFilms()
+        public void GetBookings()
         {
             if (!Headers.TryGetValue("Access-Token", out var token) && !TokenWorker.CheckToken(token)) {
                 Send(new AnswerModel(false, null, 401, "incorrect request body"));
@@ -40,10 +41,39 @@ namespace WebServer.Requests
 
                 bookings.Add(booking);
             }
-
+            filterBookings = bookings;
             Send(new AnswerModel(true, new { bookings = bookings }, null, null));
         }
+        [Get("filter")]
+        public void FilterFilms()
+        {
+            if (!filterBookings.Any())
+            {
+                Send(new AnswerModel(false, null, 401, "incorrect request body"));
+                return;
+            }
+            List<BookingModel> tmp = filterBookings;
+            if (Params.TryGetValue("option", out var sort) && sort != "")
+            {
+                if (Convert.ToInt32(sort) == 1)
+                {
+                    tmp = tmp.OrderByDescending(b => b.DateTime).ToList();
+                }
+                if (Convert.ToInt32(sort) == 2)
+                {
+                    
+                }
+                if (Convert.ToInt32(sort) == 3)
+                {
+                   
+                }
 
+            }
+
+           
+
+            Send(new AnswerModel(true, new { bookings = tmp }, null, null));
+        }
         [Get("id")]
         public void GetBookingByID()
         {

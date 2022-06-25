@@ -48,7 +48,9 @@ const addReview=()=>{
           Rating:rating!,
           Comment:comment!,
   };
-     ReviewService.AddReview(data);
+     ReviewService.AddReview(data).then((res)=>{
+      if (res){setShow(true);}
+     });
     
   }
   React.useEffect(() => {
@@ -134,11 +136,11 @@ const addReview=()=>{
         </div>
         </div>
         <ToastContainer position="top-end">
-    <Toast show={show} bg="danger" autohide delay={3000} onClose={toggleShow}>
+    <Toast show={show} bg="success" autohide delay={3000} onClose={toggleShow}>
     <Toast.Header>
-        <strong>Ошибка</strong>
+        <strong>Успешно</strong>
     </Toast.Header>
-    <Toast.Body>Неверный телефон или пароль</Toast.Body>
+    <Toast.Body>Отзыв успешно добавлен</Toast.Body>
   </Toast>
     </ToastContainer>
         

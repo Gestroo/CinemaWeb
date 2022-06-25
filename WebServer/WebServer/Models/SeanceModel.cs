@@ -21,7 +21,7 @@ namespace WebServer.Models
             this.ID = seance.ID;
             this.CinemaHall = new HallModel(seance.CinemaHall,seance);
             this.Film = new FilmModel(seance.Film);
-            this.SeanceTime = seance.SeanceDate.ToString("t");
+            this.SeanceTime = seance.SeanceDate.AddHours(3).ToString("t");
             this.SeanceDate = seance.SeanceDate.ToString("d");
             this.Cost = seance.Cost;
            

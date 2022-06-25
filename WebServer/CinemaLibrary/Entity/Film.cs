@@ -36,7 +36,7 @@ namespace CinemaLibrary.Entity
             ApplicationContext db = Context.Db;
             try
             {
-                return db.Film.Include(f => f.Genre).ToList();
+                return db.Film.Include(f => f.Genre).Where(f=>f.DateFinish>=DateTime.Today).ToList();
             }
             catch { 
             return null;

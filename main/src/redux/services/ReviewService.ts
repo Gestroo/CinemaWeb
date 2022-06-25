@@ -13,11 +13,7 @@ class ReviewService{
         return axios.post(API_URL + "add",data,{headers:authHeader()})
         .then((response) => {
             const data: Answer = response.data;
-            if (data.status){
-              const review: PostReview = data.answer.review;
               return data.status;
-            }
-            return data.status
           })
           .catch((error) => {
             console.log(error);

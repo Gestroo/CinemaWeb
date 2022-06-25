@@ -55,12 +55,14 @@ import AuthModal from "./AuthModal";
             <Button className="mx-1 noBorder" name={"auth"} onClick={() => setOpen(true)} style={{
     backgroundColor: "#635654",
     borderColor: "#635654",
+    fontWeight:"bold",
     }}>
             Войти    
             </Button>
             <Button className="mx-3" onClick={()=> {navigate("/registration")}} style={{
     backgroundColor: "#635654",
     borderColor: "#635654",
+    fontWeight:"bold",
     }}>
             Зарегистрироваться  
             </Button>

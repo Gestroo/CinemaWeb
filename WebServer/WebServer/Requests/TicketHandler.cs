@@ -48,6 +48,7 @@ namespace WebServer.Requests
            Send(new AnswerModel(true, null, null, null));
         }
         [Post("buy")]
+        [ResponseTimeout(10000)]
         public void BuyTickets()
         {
             if (!Headers.TryGetValue("Access-Token", out var token) && !TokenWorker.CheckToken(token))
@@ -63,7 +64,6 @@ namespace WebServer.Requests
             }
             var body = Bind<TicketsModel>();
             if (body is null || body.Seat is null || body.Seance ==0)
-
             {
                 Send(new AnswerModel(false, null, 400, "incorrect request"));
                 return;
@@ -125,7 +125,7 @@ namespace WebServer.Requests
         public static void CommitMessage(Ticket ticket,Client client)
         {
             var from = new MailAddress("cinema-vyatsu@mail.ru", "Кинотеатр Премьер");
-            var to = new MailAddress("strooge2105@gmail.com", "Пользователь");
+            var to = new MailAddress(client.Email, "Пользователь");
 
             var msg2 = new MailMessage(from, to);
             msg2.Subject = "Билет в кинотеатр Премьер";

@@ -34,7 +34,8 @@ namespace CinemaLibrary
         readonly static StreamWriter stream = new StreamWriter("log.txt", true);
         public static DbContextOptions<ApplicationContext> GetDb()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>().UseNpgsql("Host=45.10.244.15;Port=55532;Database=work100027;Username=work100027;Password=jGG*CL|1k9Xk04qjR%du");
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>().UseNpgsql("Host=localhost;Port=5432;Database=cinema;Username=Gestroo;Password=123");
+           // var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>().UseNpgsql("Host=45.10.244.15;Port=55532;Database=work100027;Username=work100027;Password=jGG*CL|1k9Xk04qjR%du");
             optionsBuilder.LogTo(stream.WriteLine);
             return optionsBuilder.Options;
         }

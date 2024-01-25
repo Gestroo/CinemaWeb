@@ -23,10 +23,12 @@ namespace CinemaLibrary.Entity
             Bookings = new List<Booking>();
         }
 
-        public Client(string LastName, string FirstName, string? MiddleName, string PhoneNumber, DateOnly BirthDate)
+        public Client(string LastName, string FirstName, string? MiddleName, string PhoneNumber, DateOnly BirthDate, string password, string email)
             : base(LastName, FirstName, MiddleName, PhoneNumber)
         {
             this.BirthDate = BirthDate;
+            this.Password = password;
+            this.Email = email;
             Bookings = new List<Booking>();
         }
         public static Client FindClient(string lastName, string firstName, string middleName, string phoneNumber, DateOnly birthDate)

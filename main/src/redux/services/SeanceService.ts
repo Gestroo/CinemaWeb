@@ -6,14 +6,10 @@ const API_URL = "http://localhost:8080/seances/";
 
 class SeanceService {
     getSeanceByFilmId(id: string) {
-        return axios.get(API_URL + "filmId?id="+id)
+        return axios.get(API_URL + "film/"+id)
           .then((response) => {
-            const data: Answer = response.data;
-            if (data.status){
-              const seances : Seance[] = data.answer.seances;
+              const seances : Seance[] = response.data;
               return seances;
-            }
-            return[]
           })
           .catch((error) => {
             console.log(error);
@@ -21,15 +17,11 @@ class SeanceService {
           });
       }
       getSeanceById(id: string) {
-        return axios.get(API_URL + "id?id="+id)
+        return axios.get(API_URL+id)
           .then((response) => {
-            const data: Answer = response.data;
-            if (data.status){
-              const seance : SeanceHall = data.answer.seance
+              const seance : SeanceHall = response.data
               console.log(seance)
               return seance;
-            }
-            return;
           })
           .catch((error) => {
             console.log(error);

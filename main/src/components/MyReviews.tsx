@@ -55,15 +55,15 @@ React.useEffect(() => {
       }}>    
           <h3 style={{
             textAlign:"center",
-          }}>{review.Film.Name}</h3>
+          }}>{review.film.name}</h3>
           <h4 style={{
             textAlign:"center",
           }}>
-            Оценка: {review.Rating}
+            Оценка: {review.rating}
           </h4>
           <h5 style={{
             textAlign:"center",}}>
-                {review.Comment}
+                {review.comment}
           </h5> 
       </div>
           </div>

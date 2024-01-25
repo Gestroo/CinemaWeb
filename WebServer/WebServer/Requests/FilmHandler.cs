@@ -84,7 +84,7 @@ namespace WebServer.Requests
             Send(new AnswerModel(true, new { films = tmp }, null, null));
         }
         [Get("id")]
-        public void GetFilmsByID()
+        public void GetFilmByID()
         {
             var id = GetParams<int>("id");
             if (id == null)

@@ -2,7 +2,7 @@ import React from 'react';
 import {Card,Image,Form,Button, Dropdown,Toast,ToastContainer} from 'react-bootstrap';
 import {useNavigate, useLocation} from 'react-router-dom';
 import {Booking} from '../models/BookingModel'
-import { PostReview } from '../models/ReviewModel';
+import {Review} from '../models/ReviewModel';
 import BookingService from '../redux/services/BookingService';
 import "../assets/css/index.css"
 import ReviewService from '../redux/services/ReviewService';
@@ -17,36 +17,13 @@ function NewReview() {
   const searchParams = new URLSearchParams(search);
   const bookingId = searchParams.get("id");
   const [key,setKey] = React.useState<boolean>(false)
-
-  const [values, setValues] = React.useState<PostReview>({
-    Film: {
-      ID:0,
-      Name: "",
-      Duration: 0,
-      Genre: {ID:0,
-        Title:""},
-      Restriction: 0,
-      Description:"",  
-      Poster: ""
-    },
-    Client:{
-      id:0,
-      birthdate:'',
-      lastname: '',
-      firstname: '',
-      middlename: '',
-      phone: '',
-      email: '',
-    },
-    Rating:0,
-    Comment:""
-})
 const addReview=()=>{
-  const data: PostReview = {
-          Film:booking!.Ticket.Seance.Film,
-          Client:booking!.Client,
-          Rating:rating!,
-          Comment:comment!,
+  const data: Review = {
+          id: 0,
+          film:booking!.ticket.seance.film,
+          client:booking!.client,
+          rating:rating!,
+          comment:comment!,
   };
      ReviewService.AddReview(data).then((res)=>{
       if (res){setShow(true);}
@@ -77,7 +54,7 @@ const addReview=()=>{
         width:"320px"
       }}>
         <Card.Body>
-          <Image src={booking?.Ticket.Seance.Film.Poster}  style={{
+          <Image src={booking?.ticket.seance.film.poster} style={{
             width:"270px",
             height:"360px"
           }}>
@@ -91,7 +68,7 @@ const addReview=()=>{
         <h2 className='my-2' style={{
             color:"#fff"
         }}>
-           {booking?.Ticket.Seance.Film.Name}
+           {booking?.ticket.seance.film.name}
         </h2>
             <Form className="mt-4">
               <Form.Select value={rating} 

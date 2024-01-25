@@ -23,10 +23,10 @@ function Hall1() {
     const [seance, setSeance] = React.useState<SeanceHall>();
     const [pickedSeats,setPickedSeats]=React.useState<Seat[]>([])
     const [values, setValues] = React.useState<Tickets>({
-        ID:0,
-        Seance: 0,
-        Seat: pickedSeats,
-        DateTime:""
+        id:0,
+        seance: 0,
+        seat: pickedSeats,
+        dateTime:""
     })
 
 
@@ -43,13 +43,13 @@ function Hall1() {
      const pickSeat=(seat:Seat)=>{
     if (pickedSeats.includes(seat)){
         setPickedSeats((pickedSeats)=>[...pickedSeats.filter(i=>i !== seat)]);
-        const button = document.getElementById(seat.ID.toString());
+        const button = document.getElementById(seat.id.toString());
         button!.style.backgroundColor="#F8F9FA";
         button!.style.borderColor="#F8F9FA";
     }
     else {
         setPickedSeats(pickedSeats=>[...pickedSeats,seat]);
-        const button = document.getElementById(seat.ID.toString());
+        const button = document.getElementById(seat.id.toString());
         button!.style.backgroundColor="#787272";
         button!.style.borderColor="#787272";
     }
@@ -66,7 +66,7 @@ function Hall1() {
         SeanceService.getSeanceById(seanceId!).then((res) => {
           if(res!== undefined){
             setSeance(res);
-            setCost(res.Cost);
+            setCost(res.cost);
           }
         })
         setKey(true);
@@ -85,7 +85,7 @@ function Hall1() {
             <h2 className="py-4" style={{ 
                 textAlign:"center"
             }}>
-                {seance?.Film.Name}, {seance?.SeanceDate}, {seance?.SeanceTime}, {seance?.CinemaHall.HallName}, {seance?.Film.Restriction}+
+                {seance?.film.name}, {seance?.seanceDate}, {seance?.seanceTime}, {seance?.cinemaHall.hallName}, {seance?.film.restriction}+
             </h2>
         </div>
         <div style={{
@@ -107,32 +107,32 @@ function Hall1() {
             </div>
             <div className="my-4 mx-auto" style={{
             }}>
-                {seance?.CinemaHall.Rows.map((row)=>(<div style={{
+                {seance?.cinemaHall.rows.map((row)=>(<div style={{
                     justifyContent:"space-between",
                     margin:"2rem 6rem",
                     alignItems:"center",
                 }} id="r6" className="d-flex">
                     <p style={{
                         margin:"auto 0"
-                    }}>Ряд {row.RowNumber}</p>
-                        {row.Seats.map((seat)=>(
+                    }}>Ряд {row.rowNumber}</p>
+                        {row.seats.map((seat)=>(
                             <>
                             {
-                                (seat.SeatNumber===10)?
+                                (seat.seatNumber===10)?
                                 (
                                     <>
                                     {
-                                        (seat.Status==="Забронировано")?
+                                        (seat.status=="Забронировано")?
                                         (
-                                            <Button id={seat!.ID.toString()} variant="info" className="seatButton reserved button2digits">{seat.SeatNumber}</Button>
+                                            <Button id={seat!.id.toString()} variant="info" className="seatButton reserved button2digits">{seat.seatNumber}</Button>
                                         ):(
                                             <>
                                             {
-                                                (seat.Status==="Куплено")?
+                                                (seat.status==="Куплено")?
                                                 (
-                                                    <Button id={seat!.ID.toString()} variant="danger" className="seatButton bought button2digits">{seat.SeatNumber}</Button>
+                                                    <Button id={seat!.id.toString()} variant="danger" className="seatButton bought button2digits">{seat.seatNumber}</Button>
                                                 ):(
-                                                    <Button id={seat!.ID.toString()} variant="light" onClick={e=>{pickSeat(seat)}} className="seatButton button2digits">{seat.SeatNumber}</Button>
+                                                    <Button id={seat!.id.toString()} variant="light" onClick={e=>{pickSeat(seat)}} className="seatButton button2digits">{seat.seatNumber}</Button>
                                                 )
                                             }
                                             </>
@@ -142,17 +142,17 @@ function Hall1() {
                                 ):(
                                     <>
                                     {
-                                        (seat.Status==="Забронировано")?
+                                        (seat.status=="Забронировано")?
                                         (
-                                            <Button id={seat!.ID.toString()} variant="info" className="seatButton reserved">{seat.SeatNumber}</Button>
+                                            <Button id={seat!.id.toString()} variant="info" className="seatButton reserved">{seat.seatNumber}</Button>
                                         ):(
                                             <>
                                             {
-                                                (seat.Status==="Куплено")?
+                                                (seat.status==="Куплено")?
                                                 (
-                                                    <Button id={seat!.ID.toString()} variant="danger" className="seatButton bought">{seat.SeatNumber}</Button>
+                                                    <Button id={seat!.id.toString()} variant="danger" className="seatButton bought">{seat.seatNumber}</Button>
                                                 ):(
-                                                    <Button id={seat!.ID.toString()} variant="light" onClick={e=>{pickSeat(seat)}} className="seatButton">{seat.SeatNumber}</Button> 
+                                                    <Button id={seat!.id.toString()} variant="light" onClick={e=>{pickSeat(seat)}} className="seatButton">{seat.seatNumber}</Button>
                                                 )
                                             }
                                             </>
@@ -167,7 +167,7 @@ function Hall1() {
 
                      <p style={{
                         margin:"auto 0"
-                    }}>Ряд {row.RowNumber}</p>
+                    }}>Ряд {row.rowNumber}</p>
                     </div>))}
             </div>
             
@@ -242,10 +242,10 @@ function Hall1() {
             }}>
             <Button onClick={()=>{
                 if (user.client.isAuth){
-                    setValues({ID:0,
-                        Seance: seance!.ID,
-                        Seat: pickedSeats,
-                        DateTime:""})
+                    setValues({id:0,
+                        seance: seance!.id,
+                        seat: pickedSeats,
+                        dateTime:""})
                 handleShow();
             }
             else{setOpen(true)}
@@ -256,10 +256,10 @@ function Hall1() {
                 Забронировать
             </Button>
             <Button onClick={e=>{if (user?.client.isAuth){
-                setValues({ID:0,
-                    Seance: seance!.ID,
-                    Seat: pickedSeats,
-                    DateTime:""})
+                setValues({id:0,
+                    seance: seance!.id,
+                    seat: pickedSeats,
+                    dateTime:""})
                 buyHandleShow();
             }
             else{setOpen(true)}
@@ -273,12 +273,12 @@ function Hall1() {
         </div>
         <Modal show={show}
         onHide={handleClose} backdrop="static">
-            <Modal.Header>
+            <Modal.Header  >
                 <Modal.Title>
                     Подтверждение
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body >
                 Количество мест : {pickedSeats.length}<br/>
                 К оплате : {pickedSeats.length*cost}
             </Modal.Body>
@@ -293,16 +293,22 @@ function Hall1() {
         </Modal>
         <Modal show={buyShow}
         onHide={buyHandleClose} backdrop="static">
-            <Modal.Header>
+            <Modal.Header style={{backgroundColor: "#D0B3AA",}}>
                 <Modal.Title>
                     Подтверждение
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{ 
+            backgroundColor: "#635654",
+            color: "#fff",
+        }}>
                 Количество мест : {pickedSeats.length}<br/>
                 К оплате : {pickedSeats.length*cost}
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer style={{ 
+            backgroundColor: "#635654",
+            color: "#fff",
+        }}>
                 <Button variant="secondary" onClick={buyHandleClose}>
                     Отмена
                 </Button>

@@ -10,8 +10,7 @@ namespace WebServer
     {
         public static DateTime SetKindUtc(this DateTime dateTime)
         {
-            if (dateTime.Kind == DateTimeKind.Utc) { return dateTime; }
-            return DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+            return dateTime.Kind == DateTimeKind.Utc ? dateTime : DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
         }
     }
 }

@@ -1,6 +1,10 @@
-﻿namespace WebServer.ASP.Repositories;
+﻿using CinemaLibrary.Entity;
 
-public interface ISeanceRepositry
+namespace WebServer.ASP.Repositories;
+
+public interface ISeanceRepository
 {
+    IQueryable<Seance> GetSeancesByFilmId(int id);
+    Seance? GetSeanceById(int id);
     
 }

@@ -1,11 +1,6 @@
 ﻿using CinemaLibrary.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WebServer.Models
+namespace WebServer.ASP.Models
 {
     public class FilmModel
     {
@@ -15,7 +10,7 @@ namespace WebServer.Models
         public GenreModel Genre { get; set; }
         public int Restriction { get; set; }
         public string Description { get; set; }
-        public string Poster { get; set; }
+        public string? Poster { get; set; }
         public FilmModel(Film f) { 
             this.ID = f.ID;
             this.Name = f.Name;

@@ -1,6 +1,9 @@
-﻿namespace WebServer.ASP.Repositories;
+﻿using CinemaLibrary.Entity;
 
-public class IBookingRepository
+namespace WebServer.ASP.Repositories;
+
+public interface IBookingRepository
 {
-    
+    Booking? GetBookingById(int id);
+    IEnumerable<Booking> GetBookings(Client client);
 }

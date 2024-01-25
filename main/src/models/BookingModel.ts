@@ -2,9 +2,9 @@ import { Client } from "./ClientModel";
 import { Ticket } from "./TicketModel";
 
 export interface Booking{
-    ID:number,
-    DateTime:string,
-    Ticket:Ticket,
-    Client: Client,
-    IsBought:boolean,
+    id:number,
+    dateTime:string,
+    ticket:Ticket,
+    client: Client,
+    isBought:boolean,
 }

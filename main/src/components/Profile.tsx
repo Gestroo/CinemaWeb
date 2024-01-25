@@ -67,11 +67,11 @@ React.useEffect(() => {
       }}>    
           <h3 style={{
             textAlign:"center",
-          }}>{booking.Ticket.Seance.Film.Name}</h3>
+          }}>{booking.ticket.seance.film.name}</h3>
           <h4 style={{
             textAlign:"center",
           }}>
-            {booking.Ticket.Seance.SeanceDate}  {booking.Ticket.Seance.SeanceTime}
+            {booking.ticket.seance.seanceDate}  {booking.ticket.seance.seanceTime}
           </h4>
           <div className="my-2 mx-4 d-flex" style={{
             justifyContent:'space-between'
@@ -82,7 +82,7 @@ React.useEffect(() => {
             color:"#000",
             fontWeight: "bold",
           }}> Подробнее</Button>
-          <Button onClick={()=>{navigate("/review?id="+booking.ID)}} style={{
+          <Button onClick={()=>{navigate("/review?id="+booking.id)}} style={{
            backgroundColor:"#D0B3AA",
            borderColor:"#D0B3AA",
            color:"#000",
@@ -109,13 +109,13 @@ React.useEffect(() => {
             color: "#fff",
         }}>
              <h2>
-                Название фильма: {modalBooking?.Ticket.Seance.Film.Name} 
+                Название фильма: {modalBooking?.ticket.seance.film.name}
              </h2>
-             <h3>Жанр: {modalBooking?.Ticket.Seance.Film.Genre.Title}</h3>
-             <h3>Дата: {modalBooking?.Ticket.Seance.SeanceDate} {modalBooking?.Ticket.Seance.SeanceTime}</h3>
-             <h4>{modalBooking?.Ticket.Seance.CinemaHall.HallName}</h4>
-             <h4>Ряд: {modalBooking?.Ticket.Row?.RowNumber}</h4>
-             <h4>Место: {modalBooking?.Ticket.Seat.SeatNumber}</h4>
+             <h3>Жанр: {modalBooking?.ticket.seance.film.genre.title}</h3>
+             <h3>Дата: {modalBooking?.ticket.seance.seanceDate} {modalBooking?.ticket.seance.seanceTime}</h3>
+             <h4>{modalBooking?.ticket.seance.cinemaHall.hallName}</h4>
+             <h4>Ряд: {modalBooking?.ticket.row?.rowNumber}</h4>
+             <h4>Место: {modalBooking?.ticket.seat.seatNumber}</h4>
            </Modal.Body>
          </Modal>
         </div>

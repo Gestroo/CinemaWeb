@@ -141,7 +141,7 @@ function Home() {
                   overflowX:"hidden"
                 }}>
                 {genres.map((genre)=>(
-            <Dropdown.Item onClick={e=>{setGenre(genre.Title);filterFilms(title,option,genre.Title,restriction,minValue,maxValue)}}>{genre.Title}</Dropdown.Item>
+            <Dropdown.Item onClick={e=>{setGenre(genre.title);filterFilms(title,option,genre.title,restriction,minValue,maxValue)}}>{genre.title}</Dropdown.Item>
         ))}
                   
                 </Dropdown.Menu>
@@ -199,14 +199,14 @@ function Home() {
       <Container className='mt-4 row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 col-lg-11 col-md-8 mx-auto'>
         {films.map((film)=>(
             <div className='col'>
-            <Card onClick={()=> {navigate("/film?id="+ film.ID)}} className="mx-4 film"
-       style={{
+            <Card onClick={()=> {navigate("/film?id="+ film.id)}} className="mx-4 film"
+                  style={{
         backgroundColor: "#635654",
         borderColor: "#635654",
         color:"#fff",
       }}>
         <Card.Body>
-          <Image src={film.Poster}  style={{
+          <Image src={film.poster} style={{
             width:"270px",
             height:"360px"
           }}>
@@ -215,7 +215,7 @@ function Home() {
             width:"270px",
             textAlign:"center",
             margin:"auto 0"
-          }}>{film.Name}</h3>
+          }}>{film.name}</h3>
         </Card.Body>
       </Card>
           </div>

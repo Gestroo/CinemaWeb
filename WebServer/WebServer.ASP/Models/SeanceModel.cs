@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CinemaLibrary.Entity;
+﻿using CinemaLibrary.Entity;
 
-namespace WebServer.Models
+namespace WebServer.ASP.Models
 {
     public class SeanceModel
     {

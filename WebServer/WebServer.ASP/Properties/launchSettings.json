@@ -11,8 +11,8 @@
     "WebServer.ASP": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:7143;http://localhost:5046",
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:7143;http://localhost:8080",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

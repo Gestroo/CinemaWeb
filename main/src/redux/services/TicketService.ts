@@ -11,11 +11,7 @@ class TicketService{
     BookTicket(data:Tickets){
         return axios.post(API_URL + "book",data,{headers:authHeader()})
         .then((response) => {
-            const data: Answer = response.data;
-            if (data.status){
-              return data.status;
-            }
-            return data.status
+              return response.data;
           })
           .catch((error) => {
             console.log(error);
@@ -25,11 +21,7 @@ class TicketService{
     BuyTicket(data:Tickets){
         return axios.post(API_URL + "buy",data,{headers:authHeader()})
         .then((response) => {
-            const data: Answer = response.data;
-            if (data.status){
-              return data.status;
-            }
-            return data.status
+              return response.data;
           })
           .catch((error) => {
             console.log(error);

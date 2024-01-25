@@ -1,11 +1,11 @@
 import { Genre } from "./GenreModel"
 
 export interface Film{
-	ID: number,
-	Name: string,
-	Duration: number,
-	Genre: Genre,
-	Restriction: number,
-    Description: string | null,
-	Poster: string | undefined
+	id: number,
+	name: string,
+	duration: number,
+	genre: Genre,
+	restriction: number,
+    description: string | null,
+	poster: string | undefined
 }

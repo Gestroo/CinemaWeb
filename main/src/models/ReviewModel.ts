@@ -2,15 +2,15 @@ import { Client } from "./ClientModel";
 import { Film } from "./FilmModel";
 
 export interface Review{
-    ID:number,
-    Film: Film,
-    Client:Client,
-    Rating:number,
-    Comment:string,
+    id:number,
+    film: Film,
+    client:Client,
+    rating:number,
+    comment:string,
 }
 export interface PostReview{
-    Film: Film,
-    Client:Client,
-    Rating:number,
-    Comment:string,
+    film: Film,
+    client:Client,
+    rating:number,
+    comment:string,
 }

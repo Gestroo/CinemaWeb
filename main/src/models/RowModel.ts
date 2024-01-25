@@ -1,8 +1,8 @@
-import { Seat } from "./SeatModel";
+import {Seat} from "./SeatModel";
 
-export interface Row{
+export interface Row {
 
-   ID:number,
-    RowNumber: number,
-    Seats:Seat[]
-    }
+    id: number,
+    rowNumber: number,
+    seats: Seat[]
+}

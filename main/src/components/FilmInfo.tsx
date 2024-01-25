@@ -43,7 +43,7 @@ function FilmInfo() {
         width:"320px"
       }}>
         <Card.Body>
-          <Image src={film?.Poster}  style={{
+          <Image src={film?.poster} style={{
             width:"270px",
             height:"360px"
           }}>
@@ -57,21 +57,21 @@ function FilmInfo() {
         <h2 className='my-2' style={{
             color:"#fff"
         }}>
-           {film?.Name}
+           {film?.name}
         </h2>
         <div>
             <h4>
-              Жанр: {film?.Genre.Title}
+              Жанр: {film?.genre.title}
             </h4>
           <h5>
-            Ограничение : {film?.Restriction}+
+            Ограничение : {film?.restriction}+
           </h5>
           <h6>
-            Длительность: {film?.Duration} мин.
+            Длительность: {film?.duration} мин.
           </h6>
 
           <p>
-            Описание фильма: {film?.Description}
+            Описание фильма: {film?.description}
           </p>
         </div>
         
@@ -80,8 +80,8 @@ function FilmInfo() {
             width:"100%"
           }}>
         {seances.map((seance)=>(
-            <Card onClick={()=> {navigate("/tickets?id="+ seance.ID)}} className="mx-4 seance"
-       style={{
+            <Card onClick={()=> {navigate("/tickets?id="+ seance.id)}} className="mx-4 seance"
+                  style={{
         backgroundColor: "#635654",
         borderColor: "#635654",
         color:"#fff",
@@ -92,14 +92,14 @@ function FilmInfo() {
         <Card.Body>
           <h5 style={{
             textAlign:"center",
-          }}>{seance.SeanceDate} </h5>
+          }}>{seance.seanceDate} </h5>
           <h3 style={{
             textAlign:"center",
-          }}>{seance.SeanceTime}</h3>
+          }}>{seance.seanceTime}</h3>
           <h6 style={{
             textAlign:"center",
           }}>
-            {seance.CinemaHall.HallName}
+            {seance.cinemaHall.hallName}
           </h6>
         </Card.Body>
       </Card>

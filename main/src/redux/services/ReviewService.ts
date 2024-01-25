@@ -9,11 +9,11 @@ const API_URL = "http://localhost:8080/reviews/";
 
 class ReviewService{
 
-    AddReview(data:PostReview){
-        return axios.post(API_URL + "add",data,{headers:authHeader()})
+    AddReview(data:Review){
+      console.log(data)
+        return axios.post(API_URL,data,{headers:authHeader()})
         .then((response) => {
-            const data: Answer = response.data;
-              return data.status;
+              return response.data;
           })
           .catch((error) => {
             console.log(error);
@@ -21,19 +21,17 @@ class ReviewService{
           });
     }
     getReviewsByClientId() {
-      return axios.get(API_URL + "get",{headers:authHeader()})
+      return axios.get(API_URL,{headers:authHeader()})
         .then((response) => {
-          const data: Answer = response.data;
-         if (data.status){
-            const reviews : Review[] = data.answer.reviews
+
+            const reviews : Review[] = response.data
             console.log(reviews)
             return reviews;
-         }
-         return []
+
         })
         .catch((error) => {
           console.log(error);
-          return;
+          return [];
         });
     }
 }

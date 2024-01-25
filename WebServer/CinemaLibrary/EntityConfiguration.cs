@@ -45,6 +45,7 @@ namespace CinemaLibrary
             builder.Property(p => p.DateFinish).HasColumnName("datefinish");
             builder.Property(p => p.GenreID).HasColumnName("genre_id");
             builder.Property(p => p.Poster).HasColumnName("poster");
+            builder.Property(p => p.Rating).HasColumnName("rating");
 
         }
         public static void GenreConfigure(EntityTypeBuilder<Genre> builder)

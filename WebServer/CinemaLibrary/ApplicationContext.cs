@@ -9,13 +9,13 @@ namespace CinemaLibrary
     {
         public ApplicationContext() : base(GetDb())
         {
-            Database.Migrate();
+           // Database.Migrate();
         }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            Database.Migrate();
-            Context.AddDb(this);
+          //  Database.Migrate();
+          //  Context.AddDb(this);
         }
         public DbSet<Booking> Booking { get; set; }
         public DbSet<CinemaHall> CinemaHall { get; set; }

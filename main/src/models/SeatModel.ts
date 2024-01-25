@@ -1,6 +1,6 @@
         export interface Seat{
-            ID:number,
-            SeatNumber:number,
-            Status:string,
+            id:number,
+            seatNumber:number,
+            status:string,
         }
         

@@ -1,12 +1,6 @@
 ﻿using CinemaLibrary.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
-namespace WebServer.Models
+namespace WebServer.ASP.Models
 {
     public class HallModel
     {

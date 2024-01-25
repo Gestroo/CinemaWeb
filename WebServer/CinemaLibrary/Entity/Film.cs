@@ -23,9 +23,14 @@ namespace CinemaLibrary.Entity
         public DateTime DateStart { get; set; }
         [Required]
         public DateTime DateFinish { get; set; }
+        public double Rating { get; set; }
         public string Poster { get; set; }
 
         public string ogranPlus { get { return $"{Restriction}+"; } }
+
+        public Film() {
+            Rating = 0;
+        }
          
         public static List<string> GetFilmName()
         {

@@ -72,7 +72,7 @@ function AuthModal(props: AuthProps){
                 <Form.Group className="my-2">
                     <Form.Label style={{
                 fontWeight:"bold",
-            }}>Email</Form.Label>
+            }}>Телефон</Form.Label>
                         <InputGroup className="">
                             <InputGroup.Text >
                             +7

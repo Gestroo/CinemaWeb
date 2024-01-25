@@ -1,15 +1,15 @@
 import { Film } from "./FilmModel"
 import { Hall } from "./HallModel"
 export interface Seance{
-	ID: number
-	CinemaHall:{HallNumber:number,HallName: string},
-	Film: Film,
-	SeanceDate:string,
-	SeanceTime:string,
-	Cost:number,
+	id: number
+	cinemaHall:{hallNumber:number,hallName: string},
+	film: Film,
+	seanceDate:string,
+	seanceTime:string,
+	cost:number,
 }
 export interface SeanceHall extends Seance{
-	CinemaHall:Hall
-	BoughtSeats: {ID:number,SeatNumber:number}[],
-    ReservedSeats: {ID:number,SeatNumber:number}[],
+	cinemaHall:Hall
+	boughtSeats: {id:number,seatNumber:number}[],
+    reservedSeats: {id:number,seatNumber:number}[],
 }

@@ -19,6 +19,10 @@ import Settings from './components/Settings';
 import Review from './components/Review';
 import MyReviews from './components/MyReviews';
 
+
+
+
+
 function App() {
  return(
    <>
@@ -28,25 +32,25 @@ function App() {
 }
 
 ReactDOM.render(
-<Provider store={store}>
-  <BrowserRouter>
-      <App/>
 
-  <Routes>
-    <Route path="/" element={<Home />}></Route>
-    <Route path="/news" element={<News/>}></Route>
-    <Route path="/discounts" element={<Discount />}></Route>
-    <Route path="/about" element={<About />}></Route>  
-    <Route path="/registration" element={<Registration/>}></Route>
-    <Route path="/film" element={<FilmInfo/>}></Route>   
-    <Route path="/profile/tickethistory" element={<Profile/>}></Route>   
-    <Route path="/tickets" element={<Hall1/>}></Route> 
-    <Route path="/profile/settings" element={<Settings/>}></Route>
-    <Route path="/review" element={<Review/>}></Route>
-    <Route path="/myreviews" element={<MyReviews/>}></Route>
-  </Routes>
-</BrowserRouter>
-</Provider>,
+  <Provider store={store}>
+    <BrowserRouter>
+        <App/>
+    <Routes>
+      <Route path="/" element={<Home />}></Route>
+      <Route path="/news" element={<News/>}></Route>
+      <Route path="/discounts" element={<Discount />}></Route>
+      <Route path="/about" element={<About />}></Route>  
+      <Route path="/registration" element={<Registration/>}></Route>
+      <Route path="/film" element={<FilmInfo/>}></Route>   
+      <Route path="/profile/tickethistory" element={<Profile/>}></Route>   
+      <Route path="/tickets" element={<Hall1/>}></Route> 
+      <Route path="/profile/settings" element={<Settings/>}></Route>
+      <Route path="/review" element={<Review/>}></Route>
+      <Route path="/myreviews" element={<MyReviews/>}></Route>
+    </Routes>
+  </BrowserRouter>
+  </Provider>,
 document.getElementById("root")
 );
 

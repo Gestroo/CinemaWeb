@@ -45,7 +45,7 @@ namespace WebServer.Requests
             Send(new AnswerModel(true, new { bookings = bookings }, null, null));
         }
         [Get("filter")]
-        public void FilterFilms()
+        public void FilterBookings()
         {
             if (!filterBookings.Any())
             {

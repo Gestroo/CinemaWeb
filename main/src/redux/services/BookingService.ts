@@ -9,30 +9,21 @@ const API_URL = "http://localhost:8080/bookings/";
 class BookingService {
         getBookingsByClientId() {
           return axios.get(API_URL + "get",{headers:authHeader()})
-            .then((response) => {
-              const data: Answer = response.data;
-             if (data.status){
-                const bookings : Booking[] = data.answer.bookings
+            .then((res) => {
+                const bookings : Booking[] = res.data
                 console.log(bookings)
                 return bookings;
-             }
-             return []
             })
             .catch((error) => {
               console.log(error);
-              return;
+              return [];
             });
         }
         filterBookings(option:number){
-          return axios.get(API_URL + "filter?option="+option)
-          .then((response) => {
-              console.log(response.data);
-              const data: Answer = response.data;
-              if (data.status){
-                const bookings: Booking[] = data.answer.bookings
+          return axios.get(API_URL + "filter?sort="+option,{headers:authHeader()})
+          .then((res) => {
+                const bookings: Booking[] = res.data
                 return bookings;
-              }
-              return []
             })
             .catch((error) => {
               console.log(error);
@@ -40,19 +31,14 @@ class BookingService {
             });
       }
         getBookingById(id: string) {
-          return axios.get(API_URL + "id?id="+id,{headers:authHeader()})
-            .then((response) => {
-              const data: Answer = response.data;
-              if (data.status){
-                const booking : Booking = data.answer.booking
-                console.log(booking)
+          return axios.get(API_URL +id,{headers:authHeader()})
+            .then((res) => {
+                const booking : Booking = res.data
                 return booking;
-              } 
-              return;
             })
             .catch((error) => {
               console.log(error);
-              return;
+              return ;
             });
         }
 }

@@ -7,15 +7,10 @@ const API_URL = "http://localhost:8080/genres/";
 
 class GenreService {
         getGenres(){
-            return axios.get(API_URL + "get")
+            return axios.get(API_URL)
             .then((response) => {
-                console.log(response.data);
-                const data: Answer = response.data;
-                if (data.status){
-                  const genres: Genre[] = data.answer.genres
+                  const genres: Genre[] = response.data
                   return genres;
-                }
-                return []
               })
               .catch((error) => {
                 console.log(error);

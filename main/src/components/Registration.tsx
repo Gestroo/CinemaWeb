@@ -52,6 +52,7 @@ function Registration() {
 			if (res.type === RegisterSuccess.type){
 				navigate("/");
 			}
+            navigate("/")
 		});
 	};
 

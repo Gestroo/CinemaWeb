@@ -7,15 +7,10 @@ const API_URL = "http://localhost:8080/films/";
 
 class FilmService {
         getFilms(){
-            return axios.get(API_URL + "get")
+            return axios.get(API_URL)
             .then((response) => {
-                console.log(response.data);
-                const data: Answer = response.data;
-                if (data.status){
-                  const films: Film[] = data.answer.films
+                  const films: Film[] = response.data
                   return films;
-                }
-                return []
               })
               .catch((error) => {
                 console.log(error);
@@ -23,15 +18,10 @@ class FilmService {
               });
         }
         filterFilms(title:string,option:number,genre:string,restriction:number,minDuration:number,maxDuration:number){
-          return axios.get(API_URL + "filter?title="+title+"&option="+option+"&genre="+genre+"&restriction="+restriction+"&minDuration="+minDuration+"&maxDuration="+maxDuration)
+          return axios.get(API_URL + "filter?title="+title+"&sort="+option+"&genre="+genre+"&restriction="+restriction+"&minDuration="+minDuration+"&maxDuration="+maxDuration)
           .then((response) => {
-              console.log(response.data);
-              const data: Answer = response.data;
-              if (data.status){
-                const films: Film[] = data.answer.films
+                const films: Film[] = response.data
                 return films;
-              }
-              return []
             })
             .catch((error) => {
               console.log(error);
@@ -39,14 +29,10 @@ class FilmService {
             });
       }
         getFilmById(id: string) {
-          return axios.get(API_URL + "id?id="+id)
+          return axios.get(API_URL+id)
             .then((response) => {
-              const data: Answer = response.data;
-              if (data.status){
-                const film : Film = data.answer.film
+                const film : Film = response.data
                 return film;
-              }
-              return;
             })
             .catch((error) => {
               console.log(error);

@@ -14,26 +14,7 @@ namespace WebServer.Requests
     [RequestHandlerPath("/seances")]
     public class SeanceHandler : RequestHandler
     {
-       // [Get("get")]
-        //public void GetSeances()
-        //{
-        //    List<Film> rawfilms = Seance.GetSeance();
-        //    List<FilmModel> films = new List<FilmModel>();
-
-        //    if (!rawfilms.Any())
-        //    {
-        //        Send(new AnswerModel(false, null, 401, "incorrect request body"));
-        //        return;
-        //    }
-        //    foreach (var f in rawfilms)
-        //    {
-        //        FilmModel film = new FilmModel(f.ID, f.Name, f.Duration, f.GenreID, f.Restriction, f.Description, f.Poster) { Genre = f.Genre };
-
-        //        films.Add(film);
-        //    }
-
-        //    Send(new AnswerModel(true, new { films = films }, null, null));
-        //}
+      
         [Get("filmId")]
         public void GetSeancesByFilmID()
         {
@@ -59,7 +40,7 @@ namespace WebServer.Requests
         }
         [Get("id")]
         [ResponseTimeout(100000)]
-        public void GetSeancesByID()
+        public void GetSeanceByID()
         {
             if (!Params.TryGetValue("id", out var id))
             {

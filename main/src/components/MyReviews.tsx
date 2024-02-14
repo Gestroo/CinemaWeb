@@ -8,6 +8,14 @@ function MyReviews() {
     const navigate = useNavigate();
 const[key,setKey] = React.useState<boolean>(false)
 const[reviews,setReviews]=React.useState<Review[]>([])
+const [option,setOption] = React.useState<number>(0);
+
+const filterReviews = (option:number)=>{
+  ReviewService.filterReviews(option).then((res) => {
+    console.log(res);
+    setReviews(res);
+  })
+}
 
 React.useEffect(() => {
     if (key) return;
@@ -21,10 +29,10 @@ React.useEffect(() => {
         color:"white",
         height:"100%",
     }}>
-            <div className=''  style={{
+            <div className='align-items-center'  style={{
                 height:"100%",
             }}>
-                <h2 className='mt-4 mx-auto'>Мои отзывы</h2>
+                <h2 className='mt-4 text-center'>Мои отзывы</h2>
             <Dropdown style={{
                 border:"1px solid #D0B3AA",
                 borderRadius:"15px"
@@ -36,9 +44,9 @@ React.useEffect(() => {
                             fontSize:"20px"
                 }}>Сортировать</Dropdown.Toggle>
                 <Dropdown.Menu>
-                <Dropdown.Item>По дате</Dropdown.Item>
-                    <Dropdown.Item>По алфавиту</Dropdown.Item>
-                    <Dropdown.Item>По длительности</Dropdown.Item>
+                <Dropdown.Item onClick={e=>{setOption(1);filterReviews(1)}} value={1}>По дате</Dropdown.Item>
+                    <Dropdown.Item onClick={e=>{setOption(2);filterReviews(2)}} value={2}>По алфавиту</Dropdown.Item>
+                    <Dropdown.Item onClick={e=>{setOption(3);filterReviews(3)}} value={3}>По оценке</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
             </div>

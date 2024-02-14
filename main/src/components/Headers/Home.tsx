@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Container, Carousel,Form,Dropdown,FloatingLabel, FormGroup, FormLabel} from 'react-bootstrap';
+import {Card, Container, Carousel,Form,Dropdown,FloatingLabel, FormGroup, FormLabel, Button} from 'react-bootstrap';
 import Image from 'react-bootstrap/Image'
 import "bootstrap/dist/css/bootstrap.min.css";
 import ad1 from "../../assets/img/ad.jpg"
@@ -30,6 +30,15 @@ function Home() {
       console.log(res);
       setFilms(res);
     })
+  }
+  const clearFilters = () =>{
+    setTitle("");
+    setOption(0);
+    setGenre("");
+    setRestriction(19);
+    setMinValue(0);
+    setMaxValue(200);
+    filterFilms(title,option,genre,restriction,minValue,maxValue);
   }
   const navigate = useNavigate();
   const [films, setFilms] = React.useState<Film[]>([]);
@@ -81,8 +90,8 @@ function Home() {
   border:"2px solid #D0B3AA",
   borderRadius:"20px",
   justifyContent:"space-between",
-  paddingLeft:"8rem",
-  paddingRight:"8rem"
+  paddingLeft:"4rem",
+  paddingRight:"4rem"
 }}>
 <Form>
 <Form.Group className="" style={{
@@ -104,10 +113,8 @@ function Home() {
     }}/>
 </FloatingLabel>
             </Form.Group>
-
 </Form>
 <Dropdown style={{
-  
 }}>
 <Dropdown.Toggle className="marginSortArrow mt-4 d-flex" style={{
                             backgroundColor: "#D0B3AA",
@@ -176,25 +183,32 @@ function Home() {
   color:"white",
   marginTop:"0"
 }}>
-  
-<FormGroup className="form-range d-flex">
-<FormLabel className='mx-2'>От</FormLabel>
-<FormLabel id='minDurationLabel'style={{
-  width:"30px",
-  textAlign:"center"
-}} className='mx-2 durationValueLabel'>{minValue}</FormLabel>
-<Form.Range min={0} max={200} onChange={showMinValue} value={minValue} defaultValue={0} step={1} ></Form.Range>
-</FormGroup>
-<FormGroup className="form-range d-flex">
-<FormLabel className='mx-2 durationValueLabel'>До</FormLabel>
-<FormLabel id='maxDurationLabel' style={{
-  width:"30px"
-}} className='mx-2'>{maxValue}</FormLabel>
-<Form.Range min={minValue} max={200} onChange={showMaxValue} value={maxValue} defaultValue={200} step={1}></Form.Range>
-</FormGroup>
+  <FormGroup className="form-range d-flex">
+    <FormLabel className='mx-2'>От</FormLabel>
+    <FormLabel id='minDurationLabel'style={{
+      width:"30px",
+      textAlign:"center"
+    }} className='mx-2 durationValueLabel'>{minValue}</FormLabel>
+    <Form.Range min={0} max={200} onChange={showMinValue} value={minValue} defaultValue={0} step={1} ></Form.Range>
+  </FormGroup>
+  <FormGroup className="form-range d-flex">
+    <FormLabel className='mx-2 durationValueLabel'>До</FormLabel>
+    <FormLabel id='maxDurationLabel' style={{
+      width:"30px"
+    }} className='mx-2'>{maxValue}</FormLabel>
+    <Form.Range min={minValue} max={200} onChange={showMaxValue} value={maxValue} defaultValue={200} step={1}></Form.Range>
+  </FormGroup>
 </Form>
 </div>
-
+<Button className="mx-1 my-4 noBorder" name={"auth"} onClick={() => clearFilters()} style={{
+    backgroundColor: "#D0B3AA",
+    borderColor: "#D0B3AA",
+    color:"#000",
+    maxHeight:"40px",
+    fontWeight:"bold",
+    }}>
+Сбросить фильтры
+</Button>
 </div>
       <Container className='mt-4 row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 col-lg-11 col-md-8 mx-auto'>
         {films.map((film)=>(

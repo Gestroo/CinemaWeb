@@ -32,6 +32,22 @@ public class ReviewController : ControllerBase
         return Ok(_reviewRepository.GetReviews(client).Select(g=>new ReviewModel(g)));
     }
     //TODO: Filter or Ne Filter
+    [HttpGet("filter")]
+    public IActionResult FilterReviews([FromQuery] int sort)
+    {
+        var client = GetClientInRequest();
+
+        var tmp = _reviewRepository.GetReviews(client);
+        tmp = sort switch
+        {
+        //    1 => tmp.OrderByDescending(r => r.DateTime).ToList(),
+            2 => tmp.OrderBy(r => r.Film.Name).ToList(),
+            3 => tmp.OrderByDescending(r => r.Rating).ToList(),
+            _ => tmp
+        };
+
+        return Ok(tmp.Select(r => new ReviewModel(r)));
+    }
     [HttpPost]
     public IActionResult AddReview(ReviewModel model)
     {

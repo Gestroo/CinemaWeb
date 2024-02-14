@@ -22,6 +22,7 @@ namespace WebServer.ASP.Models
             this.email = email;
         }
         public ClientModel(Client c) {
+            if (c is null) throw new NullReferenceException("А Ниче подавай нормально");
             this.id = c.ID;
             this.birthdate = c.BirthDate.ToString();
             this.lastname = c.LastName;

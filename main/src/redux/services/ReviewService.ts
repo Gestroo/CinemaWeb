@@ -20,6 +20,17 @@ class ReviewService{
             return false;
           });
     }
+    filterReviews(option:number){
+      return axios.get(API_URL + "filter?sort="+option,{headers:authHeader()})
+      .then((response) => {
+            const reviews: Review[] = response.data
+            return reviews;
+        })
+        .catch((error) => {
+          console.log(error);
+          return []
+        });
+  }
     getReviewsByClientId() {
       return axios.get(API_URL,{headers:authHeader()})
         .then((response) => {

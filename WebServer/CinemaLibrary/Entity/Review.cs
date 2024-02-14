@@ -15,6 +15,7 @@ namespace CinemaLibrary.Entity
         public Client Client { get; set; }
         public int Rating { get; set; }
         public string Comment { get; set; }
+        public DateTime dateTime { get; set; }
         
         public static Review? CheckReview(int filmId,string phone) {
             ApplicationContext db = Context.Db;

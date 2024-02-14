@@ -216,8 +216,9 @@ namespace CinemaLibrary
                     }
                 );
         }
+     
 
-       
+
         public static void HallDataConfigure(EntityTypeBuilder<CinemaHall> builder)
         {
             builder.HasData(new CinemaHall

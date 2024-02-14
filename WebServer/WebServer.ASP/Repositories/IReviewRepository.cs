@@ -5,6 +5,6 @@ namespace WebServer.ASP.Repositories;
 
 public interface IReviewRepository
 {
-    IQueryable<Review> GetReviews(Client client);
+    IEnumerable<Review> GetReviews(Client client);
     Review AddReview(ReviewModel model,Client client);
 }

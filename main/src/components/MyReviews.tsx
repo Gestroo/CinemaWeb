@@ -4,12 +4,21 @@ import {useNavigate} from 'react-router-dom';
 import { Review } from '../models/ReviewModel';
 import ReviewService from '../redux/services/ReviewService';
 
+
 function MyReviews() {
     const navigate = useNavigate();
 const[key,setKey] = React.useState<boolean>(false)
 const[reviews,setReviews]=React.useState<Review[]>([])
 const [option,setOption] = React.useState<number>(0);
+    const optionToString = (option:number) =>{
+        switch (option){
+            case 0: return "Сортировать"
+            case 1: return "По дате"
+            case 2: return "По алфавиту"
+            case 3: return "По оценке"
+        }
 
+    }
 const filterReviews = (option:number)=>{
   ReviewService.filterReviews(option).then((res) => {
     console.log(res);
@@ -42,7 +51,7 @@ React.useEffect(() => {
                             margin:"auto 3rem",
                             borderColor:"#635654",
                             fontSize:"20px"
-                }}>Сортировать</Dropdown.Toggle>
+                }}>{optionToString(option)}</Dropdown.Toggle>
                 <Dropdown.Menu>
                 <Dropdown.Item onClick={e=>{setOption(1);filterReviews(1)}} value={1}>По дате</Dropdown.Item>
                     <Dropdown.Item onClick={e=>{setOption(2);filterReviews(2)}} value={2}>По алфавиту</Dropdown.Item>

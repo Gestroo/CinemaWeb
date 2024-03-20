@@ -1,0 +1,135 @@
+dbug: 25.02.2024 12:05:31.524 CoreEventId.MultipleNavigationProperties[10607] (Microsoft.EntityFrameworkCore.Model) 
+      No relationship from 'HallSeat' to 'Seance' has been configured by convention because there are multiple properties on one entity type - {'BoughtSeances', 'ReservedSeances'} that could be matched with the properties on the other entity type - {'BoughtSeats', 'ReservedSeats'}. This message can be disregarded if explicit configuration has been specified in 'OnModelCreating'.
+dbug: 25.02.2024 12:05:31.537 CoreEventId.MultipleNavigationProperties[10607] (Microsoft.EntityFrameworkCore.Model) 
+      No relationship from 'Seance' to 'HallSeat' has been configured by convention because there are multiple properties on one entity type - {'BoughtSeats', 'ReservedSeats'} that could be matched with the properties on the other entity type - {'BoughtSeances', 'ReservedSeances'}. This message can be disregarded if explicit configuration has been specified in 'OnModelCreating'.
+dbug: 25.02.2024 12:05:31.653 CoreEventId.RequiredAttributeOnCollection[10619] (Microsoft.EntityFrameworkCore.Model) 
+      The [Required] attribute on 'HallRow.Seats' was ignored because it is a collection. The [Required] attribute should only be specified on reference navigations pointing to the principal side of the relationship.
+dbug: 25.02.2024 12:05:31.653 CoreEventId.RequiredAttributeOnCollection[10619] (Microsoft.EntityFrameworkCore.Model) 
+      The [Required] attribute on 'HallRow.Seats' was ignored because it is a collection. The [Required] attribute should only be specified on reference navigations pointing to the principal side of the relationship.
+dbug: 25.02.2024 12:05:31.705 CoreEventId.MultipleNavigationProperties[10607] (Microsoft.EntityFrameworkCore.Model) 
+      No relationship from 'Seance' to 'HallSeat' has been configured by convention because there are multiple properties on one entity type - {'BoughtSeats', 'ReservedSeats'} that could be matched with the properties on the other entity type - {'BoughtSeances', 'ReservedSeances'}. This message can be disregarded if explicit configuration has been specified in 'OnModelCreating'.
+dbug: 25.02.2024 12:05:31.707 CoreEventId.MultipleNavigationProperties[10607] (Microsoft.EntityFrameworkCore.Model) 
+      No relationship from 'HallSeat' to 'Seance' has been configured by convention because there are multiple properties on one entity type - {'BoughtSeances', 'ReservedSeances'} that could be matched with the properties on the other entity type - {'BoughtSeats', 'ReservedSeats'}. This message can be disregarded if explicit configuration has been specified in 'OnModelCreating'.
+dbug: 25.02.2024 12:05:31.717 CoreEventId.MultipleNavigationProperties[10607] (Microsoft.EntityFrameworkCore.Model) 
+      No relationship from 'Seance' to 'HallSeat' has been configured by convention because there are multiple properties on one entity type - {'BoughtSeats', 'ReservedSeats'} that could be matched with the properties on the other entity type - {'BoughtSeances', 'ReservedSeances'}. This message can be disregarded if explicit configuration has been specified in 'OnModelCreating'.
+dbug: 25.02.2024 12:05:31.739 CoreEventId.MultipleNavigationProperties[10607] (Microsoft.EntityFrameworkCore.Model) 
+      No relationship from 'Seance' to 'HallSeat' has been configured by convention because there are multiple properties on one entity type - {'BoughtSeats', 'ReservedSeats'} that could be matched with the properties on the other entity type - {'BoughtSeances', 'ReservedSeances'}. This message can be disregarded if explicit configuration has been specified in 'OnModelCreating'.
+dbug: 25.02.2024 12:05:31.740 CoreEventId.MultipleNavigationProperties[10607] (Microsoft.EntityFrameworkCore.Model) 
+      No relationship from 'HallSeat' to 'Seance' has been configured by convention because there are multiple properties on one entity type - {'BoughtSeances', 'ReservedSeances'} that could be matched with the properties on the other entity type - {'BoughtSeats', 'ReservedSeats'}. This message can be disregarded if explicit configuration has been specified in 'OnModelCreating'.
+dbug: 25.02.2024 12:05:31.740 CoreEventId.MultipleNavigationProperties[10607] (Microsoft.EntityFrameworkCore.Model) 
+      No relationship from 'Seance' to 'HallSeat' has been configured by convention because there are multiple properties on one entity type - {'BoughtSeats', 'ReservedSeats'} that could be matched with the properties on the other entity type - {'BoughtSeances', 'ReservedSeances'}. This message can be disregarded if explicit configuration has been specified in 'OnModelCreating'.
+dbug: 25.02.2024 12:05:31.999 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'Booking.TicketID' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 25.02.2024 12:05:31.999 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'RefreshToken.ClientID' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 25.02.2024 12:05:31.999 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'Review.ClientID' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 25.02.2024 12:05:31.999 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'Review.FilmID' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 25.02.2024 12:05:31.999 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'HallSeatSeance (Dictionary<string, object>).BoughtSeancesID' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 25.02.2024 12:05:31.999 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'HallSeatSeance (Dictionary<string, object>).BoughtSeatsID' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 25.02.2024 12:05:31.999 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'HallSeatSeance1 (Dictionary<string, object>).ReservedSeancesID' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 25.02.2024 12:05:31.999 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'HallSeatSeance1 (Dictionary<string, object>).ReservedSeatsID' was created in shadow state because there are no eligible CLR members with a matching name.
+info: 25.02.2024 12:05:32.233 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Entity Framework Core 6.0.10 initialized 'ApplicationContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.4+6cb649128e3e7aa8eddd77dfa75b34bad51e6e94' with options: None
+dbug: 25.02.2024 12:05:32.278 RelationalEventId.MigrateUsingConnection[20400] (Microsoft.EntityFrameworkCore.Migrations) 
+      Migrating using database 'cinema' on server ''.
+dbug: 25.02.2024 12:05:32.290 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'cinema' on server ''.
+dbug: 25.02.2024 12:05:32.527 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'cinema' on server 'tcp://localhost:5432'.
+dbug: 25.02.2024 12:05:32.529 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'cinema' on server 'tcp://localhost:5432'.
+dbug: 25.02.2024 12:05:32.534 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'cinema' on server ''.
+dbug: 25.02.2024 12:05:32.541 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteScalar'.
+dbug: 25.02.2024 12:05:32.547 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteScalar' (4ms).
+dbug: 25.02.2024 12:05:32.548 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'cinema' on server ''.
+dbug: 25.02.2024 12:05:32.632 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'cinema' on server 'tcp://localhost:5432'.
+dbug: 25.02.2024 12:05:32.638 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE c.relname='__EFMigrationsHistory');
+info: 25.02.2024 12:05:32.724 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (87ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE c.relname='__EFMigrationsHistory');
+dbug: 25.02.2024 12:05:32.724 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'cinema' on server 'tcp://localhost:5432'.
+dbug: 25.02.2024 12:05:32.726 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'cinema' on server ''.
+dbug: 25.02.2024 12:05:32.727 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'cinema' on server ''.
+dbug: 25.02.2024 12:05:32.802 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'cinema' on server 'tcp://localhost:5432'.
+dbug: 25.02.2024 12:05:32.802 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'cinema' on server 'tcp://localhost:5432'.
+dbug: 25.02.2024 12:05:32.803 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'cinema' on server ''.
+dbug: 25.02.2024 12:05:32.803 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteScalar'.
+dbug: 25.02.2024 12:05:32.804 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteScalar' (0ms).
+dbug: 25.02.2024 12:05:32.804 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'cinema' on server ''.
+dbug: 25.02.2024 12:05:32.804 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'cinema' on server 'tcp://localhost:5432'.
+dbug: 25.02.2024 12:05:32.804 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE c.relname='__EFMigrationsHistory');
+info: 25.02.2024 12:05:32.806 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE c.relname='__EFMigrationsHistory');
+dbug: 25.02.2024 12:05:32.806 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'cinema' on server 'tcp://localhost:5432'.
+dbug: 25.02.2024 12:05:32.806 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'cinema' on server ''.
+dbug: 25.02.2024 12:05:32.816 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteReader'.
+dbug: 25.02.2024 12:05:32.816 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteReader' (0ms).
+dbug: 25.02.2024 12:05:32.816 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'cinema' on server ''.
+dbug: 25.02.2024 12:05:32.816 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'cinema' on server 'tcp://localhost:5432'.
+dbug: 25.02.2024 12:05:32.816 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "MigrationId", "ProductVersion"
+      FROM "__EFMigrationsHistory"
+      ORDER BY "MigrationId";
+info: 25.02.2024 12:05:32.824 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "MigrationId", "ProductVersion"
+      FROM "__EFMigrationsHistory"
+      ORDER BY "MigrationId";
+dbug: 25.02.2024 12:05:32.832 RelationalEventId.DataReaderDisposing[20300] (Microsoft.EntityFrameworkCore.Database.Command) 
+      A data reader was disposed.
+dbug: 25.02.2024 12:05:32.832 RelationalEventId.ConnectionClosing[20002] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closing connection to database 'cinema' on server 'tcp://localhost:5432'.
+dbug: 25.02.2024 12:05:32.832 RelationalEventId.ConnectionClosed[20003] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Closed connection to database 'cinema' on server ''.
+info: 25.02.2024 12:05:32.859 RelationalEventId.MigrationApplying[20402] (Microsoft.EntityFrameworkCore.Migrations) 
+      Applying migration '20240127080739_addReviewDateTime'.
+dbug: 25.02.2024 12:05:32.916 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'cinema' on server ''.
+dbug: 25.02.2024 12:05:32.916 RelationalEventId.ConnectionOpened[20001] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opened connection to database 'cinema' on server 'tcp://localhost:5432'.
+dbug: 25.02.2024 12:05:32.917 RelationalEventId.TransactionStarting[20209] (Microsoft.EntityFrameworkCore.Database.Transaction) 
+      Beginning transaction with isolation level 'Unspecified'.
+dbug: 25.02.2024 12:05:32.924 RelationalEventId.TransactionStarted[20200] (Microsoft.EntityFrameworkCore.Database.Transaction) 
+      Began transaction with isolation level 'ReadCommitted'.
+dbug: 25.02.2024 12:05:32.925 RelationalEventId.CommandCreating[20103] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Creating DbCommand for 'ExecuteNonQuery'.
+dbug: 25.02.2024 12:05:32.925 RelationalEventId.CommandCreated[20104] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Created DbCommand for 'ExecuteNonQuery' (0ms).
+dbug: 25.02.2024 12:05:32.926 RelationalEventId.CommandExecuting[20100] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executing DbCommand [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE "Review" ADD "dateTime" timestamp with time zone NOT NULL DEFAULT TIMESTAMPTZ '-infinity';
+info: 25.02.2024 12:05:32.955 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (29ms) [Parameters=

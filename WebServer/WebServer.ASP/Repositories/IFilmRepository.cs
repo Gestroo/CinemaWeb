@@ -4,6 +4,6 @@ namespace WebServer.ASP.Repositories;
 
 public interface IFilmRepository
 {
-    IEnumerable<Film> GetFilms();
+    IQueryable<Film> GetFilms();
     Film? GetFilmById(int id);
 }

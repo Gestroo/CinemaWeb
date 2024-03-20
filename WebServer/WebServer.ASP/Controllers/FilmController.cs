@@ -5,6 +5,7 @@ using WebServer.ASP.Models;
 using WebServer.ASP.Repositories;
 
 namespace WebServer.ASP.Controllers;
+
 [ApiController]
 [Route("films")]
 public class FilmController : ControllerBase
@@ -19,7 +20,7 @@ public class FilmController : ControllerBase
     [HttpGet]
     public IActionResult GetFilms()
     {
-        return Ok(_filmRepository.GetFilms().Select(g=>new FilmModel(g)));
+        return Ok(_filmRepository.GetFilms().Select(g => new FilmModel(g)));
     }
 
     [HttpGet("{id:int}")]
@@ -29,23 +30,24 @@ public class FilmController : ControllerBase
         if (film is null) return NotFound();
         return Ok(film);
     }
+
     [HttpGet("filter")]
-    public IActionResult FilterFilms([FromQuery] string? title, [FromQuery] int sort, [FromQuery] string? genre, [FromQuery]int restriction, [FromQuery] int minDuration, [FromQuery] int maxDuration)
-        //TODO: Принимать все остальное
+    public IActionResult FilterFilms([FromQuery] string? title, [FromQuery] int sort, [FromQuery] string? genre,
+        [FromQuery] int restriction, [FromQuery] int minDuration, [FromQuery] int maxDuration)
     {
         var tmp = _filmRepository.GetFilms();
         tmp = sort switch
         {
-            1 => tmp.OrderByDescending(f=>f.Rating).ToList(),
-            2 => tmp.OrderBy(f => f.Name).ToList(),
-            3 => tmp.OrderBy(f => f.Duration).ToList(),
+            1 => tmp.OrderByDescending(f => f.Rating),
+            2 => tmp.OrderBy(f => f.Name),
+            3 => tmp.OrderBy(f => f.Duration),
             _ => tmp
         };
-        if (title is not null) tmp = tmp.Where(f => f.Name.ToLower().Contains(title)).ToList();
-        if (genre is not null) tmp = tmp.Where(f => f.Genre.Title.Equals(genre)).ToList();
-        if (restriction <19) tmp = tmp.Where(f => f.Restriction.Equals(restriction)).ToList();
-        tmp = tmp.Where(f => f.Duration > minDuration && f.Duration < maxDuration).ToList();
+        if (title is not null) tmp = tmp.Where(f => f.Name.ToLower().Contains(title));
+        if (genre is not null) tmp = tmp.Where(f => f.Genre.Title.Equals(genre));
+        if (restriction < 19) tmp = tmp.Where(f => f.Restriction == restriction);
+        tmp = tmp.Where(f => f.Duration > minDuration && f.Duration < maxDuration);
 
-        return Ok(tmp.Select(f => new FilmModel(f)));
+        return Ok(tmp.ToList().Select(f => new FilmModel(f)));
     }
 }

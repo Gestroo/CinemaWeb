@@ -14,7 +14,7 @@ public class FilmService : IFilmRepository
         _context = context;
     }
 
-    public IEnumerable<Film> GetFilms()
+    public IQueryable<Film> GetFilms()
     {
         var films = _context.Film.Where(f => f.DateFinish >= DateTime.Today).Include(f=>f.Genre);
         return films;

@@ -57,6 +57,7 @@ function Home() {
 
     React.useEffect(() => {
         if (key) return;
+
         FilmService.getFilms().then((res) => {
             setFilms(res);
         })

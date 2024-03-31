@@ -30,6 +30,7 @@ namespace CinemaLibrary
         public DbSet<Ticket> Ticket { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Review> Review { get; set; }
+        public DbSet<Training> Training { get; set; }
 
         readonly static StreamWriter stream = new StreamWriter("log.txt", true);
         public static DbContextOptions<ApplicationContext> GetDb()
@@ -63,6 +64,7 @@ namespace CinemaLibrary
             modelBuilder.Entity<CinemaHall>(EntityConfiguration.HallDataConfigure);
             modelBuilder.Entity<HallRow>(EntityConfiguration.RowsDataConfigure);
             modelBuilder.Entity<HallSeat>(EntityConfiguration.SeatsDataConfigure);
+            modelBuilder.Entity<Training>(EntityConfiguration.TrainingConfigure);
         }
     }
 }

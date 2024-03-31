@@ -107,7 +107,14 @@ namespace CinemaLibrary
             builder.Property(e => e.MiddleName).HasMaxLength(50).HasColumnName("middlename");
             builder.HasIndex(e => e.PhoneNumber);
         }
-
+        public static void TrainingConfigure(EntityTypeBuilder<Training> builder)
+        {
+            builder.ToTable("training");
+            builder.Property(p => p.ID).HasColumnName("id");
+            builder.Property(p => p.ClientID).HasColumnName("client_id");
+            builder.Property(p => p.lastTrain).HasColumnName("last_train");
+            builder.Property(p => p.TrainingFlag).IsRequired().HasDefaultValue(false).HasColumnName("training_flag");
+        }
 
         public static void RoleDataConfigure(EntityTypeBuilder<Role> builder)
         {

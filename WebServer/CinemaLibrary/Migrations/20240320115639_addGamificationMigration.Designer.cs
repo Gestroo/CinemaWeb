@@ -3,6 +3,7 @@ using System;
 using CinemaLibrary;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CinemaLibrary.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240320115639_addGamificationMigration")]
+    partial class addGamificationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2479,36 +2481,6 @@ namespace CinemaLibrary.Migrations
                     b.ToTable("ticket", (string)null);
                 });
 
-            modelBuilder.Entity("CinemaLibrary.Entity.Training", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("ClientID")
-                        .HasColumnType("integer")
-                        .HasColumnName("client_id");
-
-                    b.Property<bool>("TrainingFlag")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false)
-                        .HasColumnName("training_flag");
-
-                    b.Property<DateTime?>("lastTrain")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("last_train");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ClientID");
-
-                    b.ToTable("training", (string)null);
-                });
-
             modelBuilder.Entity("HallSeatSeance", b =>
                 {
                     b.Property<int>("BoughtSeancesID")
@@ -2670,17 +2642,6 @@ namespace CinemaLibrary.Migrations
                     b.Navigation("Seance");
 
                     b.Navigation("Seat");
-                });
-
-            modelBuilder.Entity("CinemaLibrary.Entity.Training", b =>
-                {
-                    b.HasOne("CinemaLibrary.Entity.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("HallSeatSeance", b =>

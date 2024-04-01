@@ -26,6 +26,7 @@ builder.Services.AddTransient<IBookingRepository, BookingService>();
 builder.Services.AddTransient<IFilmRepository, FilmService>();
 builder.Services.AddTransient<IReviewRepository, ReviewService>();
 builder.Services.AddTransient<ITicketRepository, TicketService>();
+builder.Services.AddTransient<ITrainingRepository, TrainingService>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>

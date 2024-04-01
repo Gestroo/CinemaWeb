@@ -16,6 +16,7 @@ namespace CinemaTests
         private IClientRepository _clientRepository;
         private IGenreRepository _genreRepository;
         private IFilmRepository _filmRepository;
+        private ITrainingRepository _trainingRepository;
 
 
         [SetUp]
@@ -72,11 +73,20 @@ namespace CinemaTests
                 BirthDate = DateOnly.FromDateTime(DateTime.Now),
             };
                context.Client.Add(client);
+               var training = new Training
+               {
+                   ID = 1,
+                   Client = client,
+                   ClientID = client.ID,
+                   TrainingFlag = false,
+               };
+               context.Training.Add(training);
             context.SaveChanges();
             _reviewRepository = new ReviewService(context);
             _clientRepository = new ClientService(context);
             _genreRepository = new GenreService(context);
             _filmRepository = new FilmService(context);
+            _trainingRepository = new TrainingService(context);
 
         }
 
@@ -104,5 +114,12 @@ namespace CinemaTests
             Assert.That(2, Is.EqualTo(films.Count()));
         }
 
+        [Test]
+        public void GetTraining_NewClient_ReturnFalse()
+        {
+            Client client = _clientRepository.GetClientById(1);
+            var train = _trainingRepository.GetTrainingByClientId(client);
+            Assert.That(train.TrainingFlag, Is.False);
+        }
     }
 }

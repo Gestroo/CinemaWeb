@@ -10,7 +10,8 @@ import {Genre} from "../../models/GenreModel";
 import FilmService from '../../redux/services/FilmService';
 import GenreService from '../../redux/services/GenreService';
 import 'intro.js/introjs.css';
-import { Steps, Hints } from 'intro.js-react';
+import { Steps} from 'intro.js-react';
+import TrainingService from "../../redux/services/TrainingService.ts";
 
 function Home() {
     const [title, setTitle] = React.useState<string>("");
@@ -19,7 +20,7 @@ function Home() {
     const [restriction, setRestriction] = React.useState<number>(19);
     const [minValue, setMinValue] = React.useState<number>(0);
     const [maxValue, setMaxValue] = React.useState<number>(200);
-    const [stepsEnabled,setStepsEnabled] = React.useState(true)
+    const [stepsEnabled,setStepsEnabled] = React.useState(false);
 
     const optionToString = (option:number) =>{
         switch (option){
@@ -28,15 +29,12 @@ function Home() {
             case 2: return "По алфавиту"
             case 3: return "По длительности"
         }
-
     }
     const steps = [
         {
             element: '#films',
-            intro: 'test 1',
+            intro: 'Выберите один из фильмов',
             position: 'right',
-            tooltipClass: 'myTooltipClass',
-            highlightClass: 'myHighlightClass',
         },
     ];
     const showMinValue = (e: any) => {
@@ -76,7 +74,11 @@ function Home() {
         GenreService.getGenres().then((res) => {
             setGenres(res)
         })
+        TrainingService.getClientTraining().then((res)=>{
+            setStepsEnabled(res)
+        })
         setKey(true)
+
     }, [films, genres, key])
 
     return (
@@ -87,7 +89,14 @@ function Home() {
                     enabled={stepsEnabled}
                     steps={steps}
                     initialStep={0}
+                    // onBeforeExit={()=>{return confirm("Вы уверены что хотите пропустить обучение?");}}
                     onExit={()=>{setStepsEnabled(false)}}
+                    options={{
+                        skipLabel: '<h6 style=\'margin: 5px 0 0 -70px; padding: 0; color: #0D47A1\'>Пропустить</h6>',
+                        exitOnOverlayClick:false,
+                        showButtons:false,
+                        showBullets:false,
+                }}
                 />
             <div className="d-flex">
                 <Carousel variant="dark" className="mx-auto my-4" fade style={{
@@ -274,13 +283,14 @@ function Home() {
             <Container id={"films"} className='mt-4 row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 col-lg-11 col-md-8 mx-auto'>
                 {films.map((film) => (
                     <div className='col'>
-                        <Card onClick={() => {
+                        <Card onClick={() => { setStepsEnabled(false)
                             navigate("/film?id=" + film.id)
                         }} className="mx-4 film"
                               style={{
                                   backgroundColor: "#635654",
                                   borderColor: "#635654",
                                   color: "#fff",
+                                  width: "270px",
                               }}>
                             <Card.Body>
                                 <Image src={film.poster} style={{

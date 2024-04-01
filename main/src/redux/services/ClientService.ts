@@ -19,6 +19,5 @@ class ClientService{
             return user;
           });
     }
-
 }
 export default new ClientService();

@@ -10,6 +10,7 @@ import {Genre} from "../../models/GenreModel";
 import FilmService from '../../redux/services/FilmService';
 import GenreService from '../../redux/services/GenreService';
 
+
 function Home() {
     const [title, setTitle] = React.useState<string>("");
     const [option, setOption] = React.useState<number>(0);
@@ -57,6 +58,7 @@ function Home() {
 
     React.useEffect(() => {
         if (key) return;
+
         FilmService.getFilms().then((res) => {
             setFilms(res);
         })
@@ -67,9 +69,9 @@ function Home() {
     }, [films, genres, key])
 
     return (
-        <div style={{
+            <div style={{
             backgroundColor: "#635654",
-        }}>
+                        }}>
             <div className="d-flex">
                 <Carousel variant="dark" className="mx-auto my-4" fade style={{
                     width: "640px",
@@ -115,7 +117,6 @@ function Home() {
                             label="Название фильма"
                             className=""
                             style={{
-                                paddingTop: "0.5rem",
                                 height: "40px",
                             }}
                         >
@@ -123,8 +124,7 @@ function Home() {
                                 setTitle(e.target.value);
                                 filterFilms(e.target.value, option, genre, restriction, minValue, maxValue)
                             }} placeholder="Название фильма" className="" style={{
-                                height: "40px",
-                                paddingBottom: "1rem"
+                                height: "20px",
                             }}/>
                         </FloatingLabel>
                     </Form.Group>
@@ -136,7 +136,8 @@ function Home() {
                         borderColor: "#D0B3AA",
                         fontWeight: "bold",
                         width: "65%",
-                        color: "#000"
+                        color: "#000",
+                        height:"40px",
                     }}>
                         {optionToString(option)}
                     </Dropdown.Toggle>
@@ -187,7 +188,7 @@ function Home() {
                         fontWeight: "bold",
                         color: "#000"
                     }}>
-                        { restriction === 19 ? "Ограничение" : `${restriction}+`}
+                        {restriction === 19 ? "Ограничение" : `${restriction}+`}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={e => {
@@ -253,7 +254,7 @@ function Home() {
                     Сбросить фильтры
                 </Button>
             </div>
-            <Container className='mt-4 row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 col-lg-11 col-md-8 mx-auto'>
+            <Container id={"films"} className='mt-4 row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 col-lg-11 col-md-8 mx-auto'>
                 {films.map((film) => (
                     <div className='col'>
                         <Card onClick={() => {
@@ -281,7 +282,6 @@ function Home() {
                 ))}
             </Container>
         </div>
-
     );
 }
 

@@ -9,6 +9,8 @@ import {Film} from "../../models/FilmModel";
 import {Genre} from "../../models/GenreModel";
 import FilmService from '../../redux/services/FilmService';
 import GenreService from '../../redux/services/GenreService';
+import 'intro.js/introjs.css';
+import { Steps, Hints } from 'intro.js-react';
 
 function Home() {
     const [title, setTitle] = React.useState<string>("");
@@ -17,6 +19,7 @@ function Home() {
     const [restriction, setRestriction] = React.useState<number>(19);
     const [minValue, setMinValue] = React.useState<number>(0);
     const [maxValue, setMaxValue] = React.useState<number>(200);
+    const [stepsEnabled,setStepsEnabled] = React.useState(true)
 
     const optionToString = (option:number) =>{
         switch (option){
@@ -27,6 +30,15 @@ function Home() {
         }
 
     }
+    const steps = [
+        {
+            element: '#films',
+            intro: 'test 1',
+            position: 'right',
+            tooltipClass: 'myTooltipClass',
+            highlightClass: 'myHighlightClass',
+        },
+    ];
     const showMinValue = (e: any) => {
         setMinValue(e.target.value);
         filterFilms(title, option, genre, restriction, e.target.value, maxValue)
@@ -68,9 +80,15 @@ function Home() {
     }, [films, genres, key])
 
     return (
-        <div style={{
+            <div style={{
             backgroundColor: "#635654",
-        }}>
+                        }}>
+                <Steps
+                    enabled={stepsEnabled}
+                    steps={steps}
+                    initialStep={0}
+                    onExit={()=>{setStepsEnabled(false)}}
+                />
             <div className="d-flex">
                 <Carousel variant="dark" className="mx-auto my-4" fade style={{
                     width: "640px",
@@ -116,7 +134,6 @@ function Home() {
                             label="Название фильма"
                             className=""
                             style={{
-                                paddingTop: "0.5rem",
                                 height: "40px",
                             }}
                         >
@@ -124,8 +141,7 @@ function Home() {
                                 setTitle(e.target.value);
                                 filterFilms(e.target.value, option, genre, restriction, minValue, maxValue)
                             }} placeholder="Название фильма" className="" style={{
-                                height: "40px",
-                                paddingBottom: "1rem"
+                                height: "20px",
                             }}/>
                         </FloatingLabel>
                     </Form.Group>
@@ -137,7 +153,8 @@ function Home() {
                         borderColor: "#D0B3AA",
                         fontWeight: "bold",
                         width: "65%",
-                        color: "#000"
+                        color: "#000",
+                        height:"40px",
                     }}>
                         {optionToString(option)}
                     </Dropdown.Toggle>
@@ -188,7 +205,7 @@ function Home() {
                         fontWeight: "bold",
                         color: "#000"
                     }}>
-                        { restriction === 19 ? "Ограничение" : `${restriction}+`}
+                        {restriction === 19 ? "Ограничение" : `${restriction}+`}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={e => {
@@ -254,7 +271,7 @@ function Home() {
                     Сбросить фильтры
                 </Button>
             </div>
-            <Container className='mt-4 row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 col-lg-11 col-md-8 mx-auto'>
+            <Container id={"films"} className='mt-4 row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 col-lg-11 col-md-8 mx-auto'>
                 {films.map((film) => (
                     <div className='col'>
                         <Card onClick={() => {
@@ -282,7 +299,6 @@ function Home() {
                 ))}
             </Container>
         </div>
-
     );
 }
 

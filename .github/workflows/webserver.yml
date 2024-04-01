@@ -21,8 +21,11 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
+      working-directory: ./WebServer
       run: dotnet restore
     - name: Build
+      working-directory: ./WebServer
       run: dotnet build --no-restore
     - name: Test
+      working-directory: ./WebServer
       run: dotnet test --no-build --verbosity normal

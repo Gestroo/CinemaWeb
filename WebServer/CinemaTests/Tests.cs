@@ -17,6 +17,8 @@ namespace CinemaTests
         private IGenreRepository _genreRepository;
         private IFilmRepository _filmRepository;
         private ITrainingRepository _trainingRepository;
+        private ApplicationContext _context;
+        
 
 
         [SetUp]
@@ -87,7 +89,7 @@ namespace CinemaTests
             _genreRepository = new GenreService(context);
             _filmRepository = new FilmService(context);
             _trainingRepository = new TrainingService(context);
-
+            _context = context;
         }
 
        
@@ -119,7 +121,19 @@ namespace CinemaTests
         {
             Client client = _clientRepository.GetClientById(1);
             var train = _trainingRepository.GetTrainingByClientId(client);
+            
+            Assert.IsAssignableFrom<Training>(train);
             Assert.That(train.TrainingFlag, Is.False);
+            
+            var newTrainEntry = _context.Entry(train);
+            var newTrain = newTrainEntry.Entity;
+            newTrain.TrainingFlag = true;
+            newTrain.lastTrain = DateTime.Now;
+            newTrainEntry.State = EntityState.Modified;
+            _context.SaveChanges();
+            
+            Assert.IsAssignableFrom<Training>(newTrain);
+            Assert.That(train.TrainingFlag, Is.True);
         }
     }
 }

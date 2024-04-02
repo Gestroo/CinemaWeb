@@ -12,7 +12,7 @@ import AuthModal from './AuthModal';
 import {Tickets} from '../models/TicketModel';
 import TicketService from '../redux/services/TicketService';
 import 'intro.js/introjs.css';
-import {Steps, Hints} from 'intro.js-react';
+import {Steps} from 'intro.js-react';
 import TrainingService from "../redux/services/TrainingService.ts";
 
 
@@ -24,7 +24,8 @@ function Hall1() {
     const toggleBookShow = () => setToastBookShow(!toastBookShow);
     const [seance, setSeance] = React.useState<SeanceHall>();
     const [pickedSeats, setPickedSeats] = React.useState<Seat[]>([])
-    const [stepsEnabled,setStepsEnabled] = React.useState(false);
+    const [stepsEnabled,setStepsEnabled] = React.useState(true);
+    const [nextStepsEnabled,setNextStepsEnabled] = React.useState(false);
     const [values, setValues] = React.useState<Tickets>({
         id: 0,
         seance: 0,
@@ -33,23 +34,6 @@ function Hall1() {
     })
 
     const steps = TrainingService.steps;
-    // [
-    //     {
-    //         element: '#hall',
-    //         intro: 'Выберите место в соответствии с легендой',
-    //         position: 'right',
-    //     },
-    //     {
-    //         element: '#buy',
-    //         intro: 'Нажмите на кнопку "Купить" ',
-    //         position: 'right',
-    //     },
-    //     {
-    //         element: '#confirm',
-    //         intro: 'Нажмите на кнопку "Оплатить" ',
-    //         position: 'right',
-    //     }
-    // ];
 
     const [show, setShow] = React.useState(false);
     const [buyShow, setBuyShow] = React.useState(false);
@@ -87,22 +71,41 @@ function Hall1() {
                 setSeance(res);
                 setCost(res.cost);
             }
-        })
+        });
+        TrainingService.getClientTraining().then((res)=>{
+            setStepsEnabled(res)
+        });
         setKey(true);
     }, [seance, key])
 
     return (
         <>
             <Steps
-                enabled={stepsEnabled||true}
+                enabled={stepsEnabled}
                 steps={steps}
                 initialStep={2}
                 // onBeforeExit={()=>{return confirm("Вы уверены что хотите пропустить обучение?");}}
-                onExit={()=>{setStepsEnabled(false)}}
+                onExit={()=>{setStepsEnabled(false);
+                setNextStepsEnabled(true)}}
                 options={{
                     skipLabel: '<h6 style=\'margin: 5px 0 0 -70px; padding: 0; color: #0D47A1\'>Пропустить</h6>',
                     exitOnOverlayClick:false,
                     showBullets:false,
+                    showButtons:false,
+                    hideNext: true,
+                }}
+            />
+            <Steps
+                enabled={nextStepsEnabled}
+                steps={steps}
+                initialStep={3}
+                // onBeforeExit={()=>{return confirm("Вы уверены что хотите пропустить обучение?");}}
+                onExit={()=>{setNextStepsEnabled(false)}}
+                options={{
+                    skipLabel: '<h6 style=\'margin: 5px 0 0 -70px; padding: 0; color: #0D47A1\'>Пропустить</h6>',
+                    exitOnOverlayClick:false,
+                    showBullets:false,
+                    showButtons:false,
                     hideNext: true,
                 }}
             />
@@ -171,6 +174,7 @@ function Hall1() {
                                                                                     <Button id={seat!.id.toString()} variant="light"
                                                                                             onClick={e => {
                                                                                                 pickSeat(seat)
+                                                                                                setStepsEnabled(false)
                                                                                             }}
                                                                                             className="seatButton button2digits">{seat.seatNumber}</Button>
                                                                                 )
@@ -198,6 +202,7 @@ function Hall1() {
                                                                                     <Button id={seat!.id.toString()} variant="light"
                                                                                             onClick={e => {
                                                                                                 pickSeat(seat)
+                                                                                                setStepsEnabled(false)
                                                                                             }}
                                                                                             className="seatButton">{seat.seatNumber}</Button>
                                                                                 )
@@ -315,6 +320,7 @@ function Hall1() {
                                     seat: pickedSeats,
                                     dateTime: ""
                                 })
+                                setNextStepsEnabled(false)
                                 buyHandleShow();
                             } else {
                                 setOpen(true)

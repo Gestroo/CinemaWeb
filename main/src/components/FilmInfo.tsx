@@ -1,12 +1,13 @@
 import React from 'react';
-import {Card, Image, Container, Button} from 'react-bootstrap';
+import {Card, Image, Container} from 'react-bootstrap';
 import {useNavigate, useLocation} from 'react-router-dom';
 import FilmService from '../redux/services/FilmService';
 import SeanceService from '../redux/services/SeanceService';
 import {Film} from '../models/FilmModel'
 import {Seance} from '../models/SeanceModel'
 import 'intro.js/introjs.css';
-import {Steps, Hints} from 'intro.js-react';
+import {Steps} from 'intro.js-react';
+import TrainingService from "../redux/services/TrainingService.ts";
 
 function FilmInfo() {
     const navigate = useNavigate();
@@ -38,7 +39,9 @@ function FilmInfo() {
             setSeances(res);
         })
         setKey(true);
-        setStepsEnabled(true)
+        TrainingService.getClientTraining().then((res)=>{
+            setStepsEnabled(res)
+        })
     }, [film, seances, key])
     return (
         <>
